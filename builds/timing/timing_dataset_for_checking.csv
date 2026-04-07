@@ -1,0 +1,230 @@
+Rodent_species,Location,scientificName,min_difference,max_difference,median_difference,cat_arrival
+All rodents,New Zealand,Coturnix novaezelandiae,15,1775,85,Extinction within 100 years of arrival
+All rodents,"Auckland Islands, New Zealand",Mergus australis,33,96,64.5,Extinction within 100 years of arrival
+All rodents,"Ile de Sainte-Marie, Madagascar",Coua delalandei,95,2979,1051.75,Extinction within 100 years of arrival
+All rodents,"Ogasawara Islands, Japan",Columba versicolor,-36,286,64.75,Extinction before or after arrival
+All rodents,"Makira, Solomon Islands",Pampusana salamonis,202,2744,248,Extinction at least 100-499 years after arrival
+All rodents,"Hiva Oa, French polynesia",Ptilinopus mercierii,0,1972,224.5,Extinction within 100 years of arrival
+All rodents,"Nuka Hiva, French polynesia",Ptilinopus mercierii,49,1899,151.5,Extinction within 100 years of arrival
+All rodents,"Tahiti, French Polynesia",Hypotaenidia pacifica,-48,470,44,Extinction before or after arrival
+All rodents,"Meheti'a, French Polynesia",Hypotaenidia pacifica,7,509,91,Extinction within 100 years of arrival
+All rodents,"Chatham Islands, New Zealand",Hypotaenidia dieffenbachii,-137,540,-17,Extinction before or after arrival
+All rodents,"Laysan Island, Hawaii",Zapornia palmeri,-27,-14,-20.5,Extinction before arrival
+All rodents,"Eastern Island, Hawaii",Zapornia palmeri,1,1,1,Extinction within 100 years of arrival
+All rodents,"Sand Island, Hawaii",Zapornia palmeri,0,0,0,Extinction within 100 years of arrival
+All rodents,Hawaiian Islands,Zapornia sandwichensis,-15,719,88.5,Extinction before or after arrival
+All rodents,"Kosrae, Micronesia",Zapornia monasa,428,478,453,Extinction at least 100-499 years after arrival
+All rodents,"Tahiti, French Polynesia",Prosobonia leucoptera,-146,347,-66.5,Extinction before or after arrival
+All rodents,"Kaua'i, Hawaii",Moho braccatus,106,117,111.5,Extinction at least 100-499 years after arrival
+All rodents,"Moloka'i, Hawaiian Islands",Moho bishopi,25,34,29.5,Extinction within 100 years of arrival
+All rodents,"Lord Howe Island, Australia",Gerygone insularis,10,17,13.5,Extinction within 100 years of arrival
+All rodents,"South Island, New Zealand",Turnagra capensis,45,1805,115,Extinction within 100 years of arrival
+All rodents,Hawaiian Islands,Corvus hawaiiensis,123,852,224,Extinction at least 100-499 years after arrival
+All rodents,"Ogasawara Islands, Japan",Zoothera terrestris,-97,285,33.75,Extinction before or after arrival
+All rodents,"Kosrae, Micronesia",Aplonis corvina,427,479,453,Extinction at least 100-499 years after arrival
+All rodents,"Mauke, Cook Islands",Aplonis mavornata,-75,173,49,Extinction before or after arrival
+All rodents,"Norfolk Island, Australia",Aplonis fusca,98,177,137.5,Extinction within 100 years of arrival
+All rodents,"Lord Howe Island, Australia",Aplonis fusca,-3,10,3.5,Extinction before or after arrival
+All rodents,"Lord Howe Island, Australia",Zosterops strenuus,-10,9,-0.5,Extinction before or after arrival
+All rodents,"Aldabra, Seychelles",Nesillas aldabrana,75,95,85,Extinction within 100 years of arrival
+All rodents,Hawaiian Islands,Ciridops anna,13,742,114,Extinction within 100 years of arrival
+All rodents,Moloka'i Hawaiian Islands,Drepanis funerea,28,757,129,Extinction within 100 years of arrival
+All rodents,"Stewart Island, Newzealand",Coenocorypha iredalei,74,364,219,Extinction within 100 years of arrival
+All rodents,"St Helena, Ascension Island",Mundia elpenor,-98,154,-16.5,Extinction before or after arrival
+All rodents,Tristan da Cunha,Gallinula nesiotis,-9,18,4.5,Extinction before or after arrival
+All rodents,"Moorea, French Polynesia",Prosobonia ellisi,-146,347,-66.5,Extinction before or after arrival
+All rodents,"Chatham Islands, Newzealand",Anthornis melanocephala,-71,637,64.5,Extinction before or after arrival
+All rodents,"North Island, New Zealand",Turnagra tanagra,42,1869,145.5,Extinction within 100 years of arrival
+All rodents,"Chatham Islands, Newzealand",Cabalus modestus,-82,600,40.5,Extinction before or after arrival
+All rodents,"Eiao, French Polynesia",Pomarea fluxa,-23,1036,531.25,Extinction before or after arrival
+All rodents,"Nuku Hiva, French Polynesia",Pomarea nukuhivae,1,24,12.5,Extinction within 100 years of arrival
+All rodents,"North Island, New Zealand",Coenocorypha barrierensis,670,1770,1220,Extinction at least 500-999 years after arrival
+All rodents,Lana'i Hawaii,Dysmorodrepanis munroi,39,768,140,Extinction within 100 years of arrival
+All rodents,"Ogasawara Islands, Japan",Carpodacus ferreorostris,-97,225,3.75,Extinction before or after arrival
+All rodents,"Society Islands, French Polynesia",Acrocephalus musae,-48,495,56.5,Extinction before or after arrival
+All rodents,New Zealand,Chenonetta finschi,50,1760,905,Extinction within 100 years of arrival
+All rodents,Mauritius,Columba thiriouxi,133,158,145.5,Extinction at least 100-499 years after arrival
+All rodents,Mauritius,Nesoenas cicur,133,158,145.5,Extinction at least 100-499 years after arrival
+All rodents,Rodrigues,Nesoenas rodericanus,36,95,65.5,Extinction within 100 years of arrival
+All rodents,Rodrigues,Alectroenas payandeei,-89,33,-28,Extinction before or after arrival
+All rodents,Reunion,Dryolimnas augusti,5,30,17.5,Extinction within 100 years of arrival
+All rodents,"Marquesas, French polynesia",Porphyrio paepae,137,1987,239.5,Extinction at least 100-499 years after arrival
+All rodents,New Zealand,Tribonyx hodgenorum,401,1700,1050.5,Extinction at least 100-499 years after arrival
+All rodents,"Kiritimati, Kiribati",Prosobonia cancellata,-131,659,164,Extinction before or after arrival
+All rodents,"San Cristobal, Galapagos islands",Pyrocephalus dubius,-4,189,68.25,Extinction before or after arrival
+All rodents,"Raiatea, French Polynesia",Aplonis ulietensis,-145,82,-31.5,Extinction before or after arrival
+All rodents,Reunion,Nesoenas duboisi,-61,55,-3,Extinction before or after arrival
+All rodents,"Aguijan, Northern Mariana Islands, USA",Acrocephalus nijoi,96,999,553.5,Extinction within 100 years of arrival
+All rodents,Reunion,Foudia delloni,-63,-63,-63,Extinction before arrival
+All rodents,"Maui, Hawaii",Melamprosops phaeosoma,124,854,225.5,Extinction at least 100-499 years after arrival
+All rodents,"Socorro, Mexico",Zenaida graysoni,13,22,17.5,Extinction within 100 years of arrival
+All rodents,"Oahu, Hawaii",Hemignathus lucidus,-4,30,13,Extinction before or after arrival
+All rodents,"Tahiti, French Polynesia",Ducula aurorae,67,239,153,Extinction within 100 years of arrival
+All rodents,Hawaiian Islands,Anas laysanensis,-766,63,-615,Extinction before or after arrival
+All rodents,"Nuku Hiva, French Polynesia",Vini ultramarina,61,89,75,Extinction within 100 years of arrival
+All rodents,"Ua Pou, French Polynesia",Vini ultramarina,10,37,23.5,Extinction within 100 years of arrival
+All rodents,"Fatu Hiva, French Polyneisa",Vini ultramarina,7,7,7,Extinction within 100 years of arrival
+All rodents,"Rapa, French Polynesia",Puffinus myrtae,675,788,731.5,Extinction at least 500-999 years after arrival
+All rodents,"Lundy, United Kingdom",Fratercula arctica,86,381,252.25,Extinction within 100 years of arrival
+All rodents,"Great Barrier Island, New Zealand",Pterodroma cookii,122,1909,740,Extinction at least 100-499 years after arrival
+All rodents,"San Pietro Island, Sardinia",Puffinus yelkouan,2059,2059,2059,"Extinction at least 1,000 years after arrival"
+All rodents,Tristan da Cunha,Diomedea dabbenena,-13,224,74.5,Extinction before or after arrival
+All rodents,"Ducie, Pitcairn islands",Pterodroma atrata,772,842,807,Extinction at least 500-999 years after arrival
+All rodents,"Orofero valley, Tahiti",Pomarea nigra,87,243,165,Extinction within 100 years of arrival
+All rodents,"Cousine Island, Seychelles",Zosterops modestus,63,64,63.25,Extinction within 100 years of arrival
+All rodents,"Alphonse, Seychelles",Copsychus sechellarum,173,173,173,Extinction at least 100-499 years after arrival
+All rodents,"Mahe, Seychelles",Copsychus sechellarum,-114,132,7.75,Extinction before or after arrival
+All rodents,"Marianne, Seychelles",Copsychus sechellarum,-50,188,69.25,Extinction before or after arrival
+All rodents,"Aride, Seychelles",Copsychus sechellarum,-50,26,-12.25,Extinction before or after arrival
+All rodents,Anacapa Island,Ptychoramphus aleuticus,-28,-4,-16,Extinction before arrival
+All rodents,Saint-Paul Island,Pachyptila macgillivrayi,121,207,164,Extinction at least 100-499 years after arrival
+All rodents,"North Island, New Zealand",Notiomystis cincta,23,23,23,Extinction within 100 years of arrival
+All rodents,"Great Barrier Island, New Zealand",Notiomystis cincta,23,23,23,Extinction within 100 years of arrival
+All rodents,Tristan da Cunha,Nesospiza acunhae,-10,199,69.75,Extinction before or after arrival
+Rattus exulans,New Zealand,Coturnix novaezelandiae,675,1775,1225,Extinction at least 500-999 years after arrival
+Rattus rattus,New Zealand,Coturnix novaezelandiae,15,15,15,Extinction within 100 years of arrival
+Rattus norvegicus,New Zealand,Coturnix novaezelandiae,85,85,85,Extinction within 100 years of arrival
+Rattus norvegicus,"Auckland Islands, New Zealand",Mergus australis,33,96,64.5,Extinction within 100 years of arrival
+Rattus rattus,"Ile de Sainte-Marie, Madagascar",Coua delalandei,934,2979,1956.5,Extinction at least 500-999 years after arrival
+Rattus norvegicus,"Ile de Sainte-Marie, Madagascar",Coua delalandei,95,199,147,Extinction within 100 years of arrival
+Rattus rattus,"Ogasawara Islands, Japan",Columba versicolor,-36,-12,-24,Extinction before arrival
+Rattus norvegicus,"Ogasawara Islands, Japan",Columba versicolor,21,286,153.5,Extinction within 100 years of arrival
+Rattus exulans,"Makira, Solomon Islands",Pampusana salamonis,1587,2744,2165.5,"Extinction at least 1,000 years after arrival"
+Rattus rattus,"Makira, Solomon Islands",Pampusana salamonis,202,294,248,Extinction at least 100-499 years after arrival
+Rattus norvegicus,"Makira, Solomon Islands",Pampusana salamonis,202,294,248,Extinction at least 100-499 years after arrival
+Rattus exulans,"Hiva Oa, French polynesia",Ptilinopus mercierii,1972,1972,1972,"Extinction at least 1,000 years after arrival"
+Rattus rattus,"Hiva Oa, French polynesia",Ptilinopus mercierii,0,327,163.5,Extinction within 100 years of arrival
+Rattus norvegicus,"Hiva Oa, French polynesia",Ptilinopus mercierii,122,327,224.5,Extinction at least 100-499 years after arrival
+Rattus exulans,"Nuka Hiva, French polynesia",Ptilinopus mercierii,1899,1899,1899,"Extinction at least 1,000 years after arrival"
+Rattus rattus,"Nuka Hiva, French polynesia",Ptilinopus mercierii,49,254,151.5,Extinction within 100 years of arrival
+Rattus norvegicus,"Nuka Hiva, French polynesia",Ptilinopus mercierii,49,254,151.5,Extinction within 100 years of arrival
+Rattus exulans,"Tahiti, French Polynesia",Hypotaenidia pacifica,565,470,517.5,Extinction at least 500-999 years after arrival
+Rattus rattus,"Tahiti, French Polynesia",Hypotaenidia pacifica,-44,132,44,Extinction before or after arrival
+Rattus norvegicus,"Tahiti, French Polynesia",Hypotaenidia pacifica,-48,133,42.5,Extinction before or after arrival
+Rattus exulans,"Meheti'a, French Polynesia",Hypotaenidia pacifica,620,509,564.5,Extinction at least 500-999 years after arrival
+Rattus rattus,"Meheti'a, French Polynesia",Hypotaenidia pacifica,11,171,91,Extinction within 100 years of arrival
+Rattus norvegicus,"Meheti'a, French Polynesia",Hypotaenidia pacifica,7,172,89.5,Extinction within 100 years of arrival
+Rattus exulans,"Chatham Islands, New Zealand",Hypotaenidia dieffenbachii,540,540,540,Extinction at least 500-999 years after arrival
+Rattus rattus,"Chatham Islands, New Zealand",Hypotaenidia dieffenbachii,-29,-5,-17,Extinction before arrival
+Rattus norvegicus,"Chatham Islands, New Zealand",Hypotaenidia dieffenbachii,-137,-112,-124.5,Extinction before arrival
+Rattus rattus,"Laysan Island, Hawaii",Zapornia palmeri,-27,-14,-20.5,Extinction before arrival
+Rattus rattus,"Eastern Island, Hawaii",Zapornia palmeri,1,1,1,Extinction within 100 years of arrival
+Rattus rattus,"Sand Island, Hawaii",Zapornia palmeri,0,0,0,Extinction within 100 years of arrival
+Rattus exulans,Hawaiian Islands,Zapornia sandwichensis,714,719,716.5,Extinction at least 500-999 years after arrival
+Rattus rattus,Hawaiian Islands,Zapornia sandwichensis,-15,-1,-8,Extinction before arrival
+Rattus norvegicus,Hawaiian Islands,Zapornia sandwichensis,86,91,88.5,Extinction within 100 years of arrival
+Rattus exulans,"Kosrae, Micronesia",Zapornia monasa,428,478,453,Extinction at least 100-499 years after arrival
+Rattus exulans,"Tahiti, French Polynesia",Prosobonia leucoptera,467,347,407,Extinction at least 100-499 years after arrival
+Rattus rattus,"Tahiti, French Polynesia",Prosobonia leucoptera,-142,9,-66.5,Extinction before or after arrival
+Rattus norvegicus,"Tahiti, French Polynesia",Prosobonia leucoptera,-146,10,-68,Extinction before or after arrival
+Rattus rattus,"Kaua'i, Hawaii",Moho braccatus,106,117,111.5,Extinction at least 100-499 years after arrival
+Rattus rattus,"Moloka'i, Hawaiian Islands",Moho bishopi,25,34,29.5,Extinction within 100 years of arrival
+Rattus rattus,"Lord Howe Island, Australia",Gerygone insularis,10,17,13.5,Extinction within 100 years of arrival
+Rattus exulans,"South Island, New Zealand",Turnagra capensis,705,1805,1255,Extinction at least 500-999 years after arrival
+Rattus rattus,"South Island, New Zealand",Turnagra capensis,45,45,45,Extinction within 100 years of arrival
+Rattus norvegicus,"South Island, New Zealand",Turnagra capensis,115,115,115,Extinction at least 100-499 years after arrival
+Rattus exulans,Hawaiian Islands,Corvus hawaiiensis,852,852,852,Extinction at least 500-999 years after arrival
+Rattus rattus,Hawaiian Islands,Corvus hawaiiensis,123,132,127.5,Extinction at least 100-499 years after arrival
+Rattus norvegicus,Hawaiian Islands,Corvus hawaiiensis,224,224,224,Extinction at least 100-499 years after arrival
+Rattus rattus,"Ogasawara Islands, Japan",Zoothera terrestris,-97,-13,-55,Extinction before arrival
+Rattus norvegicus,"Ogasawara Islands, Japan",Zoothera terrestris,-40,285,122.5,Extinction before or after arrival
+Rattus exulans,"Kosrae, Micronesia",Aplonis corvina,427,479,453,Extinction at least 100-499 years after arrival
+Rattus norvegicus,"Mauke, Cook Islands",Aplonis mavornata,-75,173,49,Extinction before or after arrival
+Rattus rattus,"Norfolk Island, Australia",Aplonis fusca,98,177,137.5,Extinction within 100 years of arrival
+Rattus rattus,"Lord Howe Island, Australia",Aplonis fusca,-3,10,3.5,Extinction before or after arrival
+Rattus rattus,"Lord Howe Island, Australia",Zosterops strenuus,-10,9,-0.5,Extinction before or after arrival
+Rattus rattus,"Aldabra, Seychelles",Nesillas aldabrana,75,95,85,Extinction within 100 years of arrival
+Rattus exulans,Hawaiian Islands,Ciridops anna,742,742,742,Extinction at least 500-999 years after arrival
+Rattus rattus,Hawaiian Islands,Ciridops anna,13,22,17.5,Extinction within 100 years of arrival
+Rattus norvegicus,Hawaiian Islands,Ciridops anna,114,114,114,Extinction at least 100-499 years after arrival
+Rattus exulans,Moloka'i Hawaiian Islands,Drepanis funerea,757,757,757,Extinction at least 500-999 years after arrival
+Rattus rattus,Moloka'i Hawaiian Islands,Drepanis funerea,28,37,32.5,Extinction within 100 years of arrival
+Rattus norvegicus,Moloka'i Hawaiian Islands,Drepanis funerea,129,129,129,Extinction at least 100-499 years after arrival
+Rattus exulans,"Stewart Island, Newzealand",Coenocorypha iredalei,364,364,364,Extinction at least 100-499 years after arrival
+Rattus rattus,"Stewart Island, Newzealand",Coenocorypha iredalei,74,74,74,Extinction within 100 years of arrival
+Rattus rattus,"St Helena, Ascension Island",Mundia elpenor,-98,154,28,Extinction before or after arrival
+Rattus norvegicus,"St Helena, Ascension Island",Mundia elpenor,-76,-46,-61,Extinction before arrival
+Rattus rattus,Tristan da Cunha,Gallinula nesiotis,-9,18,4.5,Extinction before or after arrival
+Rattus exulans,"Moorea, French Polynesia",Prosobonia ellisi,467,347,407,Extinction at least 100-499 years after arrival
+Rattus rattus,"Moorea, French Polynesia",Prosobonia ellisi,-142,9,-66.5,Extinction before or after arrival
+Rattus norvegicus,"Moorea, French Polynesia",Prosobonia ellisi,-146,10,-68,Extinction before or after arrival
+Rattus exulans,"Chatham Islands, Newzealand",Anthornis melanocephala,606,637,621.5,Extinction at least 500-999 years after arrival
+Rattus rattus,"Chatham Islands, Newzealand",Anthornis melanocephala,37,92,64.5,Extinction within 100 years of arrival
+Rattus norvegicus,"Chatham Islands, Newzealand",Anthornis melanocephala,-71,-15,-43,Extinction before arrival
+Rattus exulans,"North Island, New Zealand",Turnagra tanagra,702,1869,1285.5,Extinction at least 500-999 years after arrival
+Rattus rattus,"North Island, New Zealand",Turnagra tanagra,42,109,75.5,Extinction within 100 years of arrival
+Rattus norvegicus,"North Island, New Zealand",Turnagra tanagra,112,179,145.5,Extinction at least 100-499 years after arrival
+Rattus exulans,"Chatham Islands, Newzealand",Cabalus modestus,595,600,597.5,Extinction at least 500-999 years after arrival
+Rattus rattus,"Chatham Islands, Newzealand",Cabalus modestus,26,55,40.5,Extinction within 100 years of arrival
+Rattus norvegicus,"Chatham Islands, Newzealand",Cabalus modestus,-82,-52,-67,Extinction before arrival
+Rattus exulans,"Eiao, French Polynesia",Pomarea fluxa,1027,1036,1031.5,"Extinction at least 1,000 years after arrival"
+Rattus rattus,"Eiao, French Polynesia",Pomarea fluxa,-23,85,31,Extinction before or after arrival
+Rattus rattus,"Nuku Hiva, French Polynesia",Pomarea nukuhivae,1,24,12.5,Extinction within 100 years of arrival
+Rattus exulans,"North Island, New Zealand",Coenocorypha barrierensis,670,1770,1220,Extinction at least 500-999 years after arrival
+Rattus exulans,Lana'i Hawaii,Dysmorodrepanis munroi,768,768,768,Extinction at least 500-999 years after arrival
+Rattus rattus,Lana'i Hawaii,Dysmorodrepanis munroi,39,48,43.5,Extinction within 100 years of arrival
+Rattus norvegicus,Lana'i Hawaii,Dysmorodrepanis munroi,140,140,140,Extinction at least 100-499 years after arrival
+Rattus rattus,"Ogasawara Islands, Japan",Carpodacus ferreorostris,-97,-73,-85,Extinction before arrival
+Rattus norvegicus,"Ogasawara Islands, Japan",Carpodacus ferreorostris,-40,225,92.5,Extinction before or after arrival
+Rattus exulans,"Society Islands, French Polynesia",Acrocephalus musae,565,495,530,Extinction at least 500-999 years after arrival
+Rattus rattus,"Society Islands, French Polynesia",Acrocephalus musae,-44,157,56.5,Extinction before or after arrival
+Rattus norvegicus,"Society Islands, French Polynesia",Acrocephalus musae,-48,158,55,Extinction before or after arrival
+Rattus exulans,New Zealand,Chenonetta finschi,50,1760,905,Extinction within 100 years of arrival
+Rattus rattus,Mauritius,Columba thiriouxi,133,158,145.5,Extinction at least 100-499 years after arrival
+Rattus rattus,Mauritius,Nesoenas cicur,133,158,145.5,Extinction at least 100-499 years after arrival
+Rattus rattus,Rodrigues,Nesoenas rodericanus,36,95,65.5,Extinction within 100 years of arrival
+Rattus rattus,Rodrigues,Alectroenas payandeei,-89,33,-28,Extinction before or after arrival
+Rattus rattus,Reunion,Dryolimnas augusti,5,30,17.5,Extinction within 100 years of arrival
+Rattus exulans,"Marquesas, French polynesia",Porphyrio paepae,1987,1987,1987,"Extinction at least 1,000 years after arrival"
+Rattus rattus,"Marquesas, French polynesia",Porphyrio paepae,137,342,239.5,Extinction at least 100-499 years after arrival
+Rattus norvegicus,"Marquesas, French polynesia",Porphyrio paepae,137,342,239.5,Extinction at least 100-499 years after arrival
+Mus musculus,"Marquesas, French polynesia",Porphyrio paepae,137,342,239.5,Extinction at least 100-499 years after arrival
+Rattus exulans,New Zealand,Tribonyx hodgenorum,401,1700,1050.5,Extinction at least 100-499 years after arrival
+Rattus exulans,"Kiritimati, Kiribati",Prosobonia cancellata,250,659,454.5,Extinction at least 100-499 years after arrival
+Rattus rattus,"Kiritimati, Kiribati",Prosobonia cancellata,-131,-122,-126.5,Extinction before arrival
+Rattus rattus,"San Cristobal, Galapagos islands",Pyrocephalus dubius,81,189,135,Extinction within 100 years of arrival
+Rattus norvegicus,"San Cristobal, Galapagos islands",Pyrocephalus dubius,-4,7,1.5,Extinction before or after arrival
+Rattus norvegicus,"Raiatea, French Polynesia",Aplonis ulietensis,-145,82,-31.5,Extinction before or after arrival
+Rattus rattus,Reunion,Nesoenas duboisi,4,55,29.5,Extinction within 100 years of arrival
+Rattus norvegicus,Reunion,Nesoenas duboisi,-61,-10,-35.5,Extinction before arrival
+Rattus exulans,"Aguijan, Northern Mariana Islands, USA",Acrocephalus nijoi,995,999,997,Extinction at least 500-999 years after arrival
+Rattus norvegicus,"Aguijan, Northern Mariana Islands, USA",Acrocephalus nijoi,96,124,110,Extinction within 100 years of arrival
+Rattus norvegicus,Reunion,Foudia delloni,-63,-63,-63,Extinction before arrival
+Rattus exulans,"Maui, Hawaii",Melamprosops phaeosoma,853,854,853.5,Extinction at least 500-999 years after arrival
+Rattus rattus,"Maui, Hawaii",Melamprosops phaeosoma,124,134,129,Extinction at least 100-499 years after arrival
+Rattus norvegicus,"Maui, Hawaii",Melamprosops phaeosoma,225,226,225.5,Extinction at least 100-499 years after arrival
+Mus musculus,"Socorro, Mexico",Zenaida graysoni,13,22,17.5,Extinction within 100 years of arrival
+Rattus rattus,"Oahu, Hawaii",Hemignathus lucidus,-4,30,13,Extinction before or after arrival
+Rattus rattus,"Tahiti, French Polynesia",Ducula aurorae,67,239,153,Extinction within 100 years of arrival
+Rattus exulans,Hawaiian Islands,Anas laysanensis,-37,63,13,Extinction before or after arrival
+Rattus rattus,Hawaiian Islands,Anas laysanensis,-766,-657,-711.5,Extinction before arrival
+Rattus norvegicus,Hawaiian Islands,Anas laysanensis,-665,-565,-615,Extinction before arrival
+Rattus rattus,"Nuku Hiva, French Polynesia",Vini ultramarina,61,89,75,Extinction within 100 years of arrival
+Rattus rattus,"Ua Pou, French Polynesia",Vini ultramarina,10,37,23.5,Extinction within 100 years of arrival
+Rattus rattus,"Fatu Hiva, French Polyneisa",Vini ultramarina,7,7,7,Extinction within 100 years of arrival
+Rattus exulans,"Rapa, French Polynesia",Puffinus myrtae,675,788,731.5,Extinction at least 500-999 years after arrival
+Rattus rattus,"Lundy, United Kingdom",Fratercula arctica,356,381,368.5,Extinction at least 100-499 years after arrival
+Rattus norvegicus,"Lundy, United Kingdom",Fratercula arctica,86,186,136,Extinction within 100 years of arrival
+Rattus rattus,"Great Barrier Island, New Zealand",Pterodroma cookii,122,147,134.5,Extinction at least 100-499 years after arrival
+Rattus exulans,"Great Barrier Island, New Zealand",Pterodroma cookii,782,1909,1345.5,Extinction at least 500-999 years after arrival
+Rattus rattus,"San Pietro Island, Sardinia",Puffinus yelkouan,2059,2059,2059,"Extinction at least 1,000 years after arrival"
+Rattus rattus,Tristan da Cunha,Diomedea dabbenena,-13,43,15,Extinction before or after arrival
+Mus musculus,Tristan da Cunha,Diomedea dabbenena,44,224,134,Extinction within 100 years of arrival
+Rattus exulans,"Ducie, Pitcairn islands",Pterodroma atrata,772,842,807,Extinction at least 500-999 years after arrival
+Rattus rattus,"Orofero valley, Tahiti",Pomarea nigra,87,243,165,Extinction within 100 years of arrival
+Rattus rattus,"Cousine Island, Seychelles",Zosterops modestus,63,63,63,Extinction within 100 years of arrival
+Rattus norvegicus,"Cousine Island, Seychelles",Zosterops modestus,63,64,63.5,Extinction within 100 years of arrival
+Rattus rattus,"Alphonse, Seychelles",Copsychus sechellarum,173,173,173,Extinction at least 100-499 years after arrival
+Rattus rattus,"Mahe, Seychelles",Copsychus sechellarum,107,132,119.5,Extinction at least 100-499 years after arrival
+Rattus rattus,"Mahe, Seychelles",Copsychus sechellarum,-114,-94,-104,Extinction before arrival
+Rattus rattus,"Marianne, Seychelles",Copsychus sechellarum,113,188,150.5,Extinction at least 100-499 years after arrival
+Rattus norvegicus,"Marianne, Seychelles",Copsychus sechellarum,-50,26,-12,Extinction before or after arrival
+Rattus rattus,"Aride, Seychelles",Copsychus sechellarum,-50,25,-12.5,Extinction before or after arrival
+Rattus norvegicus,"Aride, Seychelles",Copsychus sechellarum,-50,26,-12,Extinction before or after arrival
+Rattus rattus,Anacapa Island,Ptychoramphus aleuticus,-28,-4,-16,Extinction before arrival
+Rattus rattus,Saint-Paul Island,Pachyptila macgillivrayi,121,207,164,Extinction at least 100-499 years after arrival
+Mus musculus,Saint-Paul Island,Pachyptila macgillivrayi,121,207,164,Extinction at least 100-499 years after arrival
+Rattus rattus,"North Island, New Zealand",Notiomystis cincta,23,23,23,Extinction within 100 years of arrival
+Rattus rattus,"Great Barrier Island, New Zealand",Notiomystis cincta,23,23,23,Extinction within 100 years of arrival
+Rattus rattus,Tristan da Cunha,Nesospiza acunhae,-10,18,4,Extinction before or after arrival
+Mus musculus,Tristan da Cunha,Nesospiza acunhae,72,199,135.5,Extinction within 100 years of arrival

@@ -1,0 +1,24 @@
+Rodent_species,cat_arrival,n
+All rodents,"Extinction at least 1,000 years after arrival",1
+All rodents,Extinction at least 100-499 years after arrival,13
+All rodents,Extinction at least 500-999 years after arrival,3
+All rodents,Extinction before arrival,3
+All rodents,Extinction before or after arrival,29
+All rodents,Extinction within 100 years of arrival,33
+Mus musculus,Extinction at least 100-499 years after arrival,2
+Mus musculus,Extinction within 100 years of arrival,3
+Rattus exulans,"Extinction at least 1,000 years after arrival",5
+Rattus exulans,Extinction at least 100-499 years after arrival,7
+Rattus exulans,Extinction at least 500-999 years after arrival,20
+Rattus exulans,Extinction before or after arrival,1
+Rattus exulans,Extinction within 100 years of arrival,1
+Rattus norvegicus,Extinction at least 100-499 years after arrival,10
+Rattus norvegicus,Extinction before arrival,7
+Rattus norvegicus,Extinction before or after arrival,11
+Rattus norvegicus,Extinction within 100 years of arrival,10
+Rattus rattus,"Extinction at least 1,000 years after arrival",1
+Rattus rattus,Extinction at least 100-499 years after arrival,13
+Rattus rattus,Extinction at least 500-999 years after arrival,1
+Rattus rattus,Extinction before arrival,10
+Rattus rattus,Extinction before or after arrival,14
+Rattus rattus,Extinction within 100 years of arrival,31

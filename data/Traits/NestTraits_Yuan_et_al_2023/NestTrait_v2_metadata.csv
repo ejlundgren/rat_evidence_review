@@ -1,0 +1,51 @@
+Column_name,Description,Data type ,Values
+Seq_HBWBLv5,Sequence number of the BoW-BirdLife version 5.0 species checklist,interger,-
+Scientific_name,Scientific name of the species,character,-
+Order,Order of the species,character,-
+Family,Family of the species,character,-
+Common_name,Common name of the species,character,-
+SISRecID,Taxonomic identifier used by IUCN/BirdLife International,character,-
+AvibaseID,Taxonomic identifier assigned by Avibase,character,-
+Parasite,Whether being an obligate brood parasite,character,0 = no; 1= yes; NA = Not available
+Mound,Whether building a mound nest,character,0 = no; 1= yes; NA = Not available
+NestSite_ground,Whether building a nest on the ground,character,0 = no; 1= yes; NA = Not available
+NestSite_tree,Whether building a nest in/on trees,character,0 = no; 1= yes; NA = Not available
+NestSite_nontree,Whether building a nest in/on non-tree vegetation,character,0 = no; 1= yes; NA = Not available
+NestSite_cliff_bank,Whether building a nest on cliffs or banks,character,0 = no; 1= yes; NA = Not available
+NestSite_underground,Whether building a nest underground,character,0 = no; 1= yes; NA = Not available
+NestSite_waterbody,Whether building a nest in/on water bodies,character,0 = no; 1= yes; NA = Not available
+NestSite_termite_ant,Whether building a nest in termite or ant nests,character,0 = no; 1= yes; NA = Not available
+NestStr_scrape,Whether building a scrape nest,character,0 = no; 1= yes; NA = Not available
+NestStr_platform,Whether building a platform nest,character,0 = no; 1= yes; NA = Not available
+NestStr_cup,Whether building a cup nest,character,0 = no; 1= yes; NA = Not available
+NestStr_dome,Whether building a dome nest,character,0 = no; 1= yes; NA = Not available
+NestStr_dome_tunnel,Whether building a dome nest with a tunnel,character,0 = no; 1= yes; NA = Not available
+NestStr_primary_cavity,Whether building a primary cavity nest,character,0 = no; 1= yes; NA = Not available
+NestStr_second_cavity,Whether building a secondary cavity  nest,character,0 = no; 1= yes; NA = Not available
+NestAtt_basal,Whether building a nest with basal attachment,character,0 = no; 1= yes; NA = Not available
+NestAtt_forked,Whether building a nest with horizontally forked attachment,character,0 = no; 1= yes; NA = Not available
+NestAtt_lateral,Whether building a nest with lateral attachment,character,0 = no; 1= yes; NA = Not available
+NestAtt_pensile,Whether building a nest with pensile attachment,character,0 = no; 1= yes; NA = Not available
+Ref_site,Reference code for nest site characterization,character,"H = BoW Alive (Birds of the World); 
+E = Embedded photos and videos and references cited in BoW Alive (Birds of the World); 
+D = Large online databases managed by reputable organizations; 
+O = Small online databases or informal online data sources such as personal blogposts, photos, and videos; 
+L = Scientific literature; 
+S = Refer to the nest characters of similar species as indicated in BoW Alive (Birds of the World); 
+N = Not available"
+Ref_str,Reference code for nest structure characterization,character,"H = BoW Alive (Birds of the World); 
+E = Embedded photos and videos and references cited in BoW Alive (Birds of the World); 
+D = Large online databases managed by reputable organizations; 
+O = Small online databases or informal online data sources such as personal blogposts, photos, and videos; 
+L = Scientific literature; 
+S = Refer to the nest characters of similar species as indicated in BoW Alive (Birds of the World); 
+N = Not available"
+Ref_att,Reference code for nest attachment characterization,character,"H = BoW Alive (Birds of the World); 
+E = Embedded photos and videos and references cited in BoW Alive (Birds of the World); 
+D = Large online databases managed by reputable organizations; 
+O = Small online databases or informal online data sources such as personal blogposts, photos, and videos; 
+L = Scientific literature; 
+S = Refer to the nest characters of similar species as indicated in BoW Alive (Birds of the World); 
+N = Not available"
+Identifier,The last name of the identifier(s),character,-
+Retrieval_time,Time period of nest information retrieval,character,[yyyy MMM~yyyy MMM]
