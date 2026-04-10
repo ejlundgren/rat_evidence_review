@@ -1,42 +1,18 @@
 
 rm(list = ls())
 
-library("groundhog")
-
-date <- "2024-07-15"
-ubuntu <- FALSE
-if(ubuntu == TRUE){
-  date <- "2023-04-15"
-}
-pcks <- c("data.table", "ggplot2", "tidyr", "readxl",
-          "stringr", "dplyr", "metafor")
-groundhog.library(pcks, date)
+library("data.table")
+library("ggplot2")
+library("tidyr")
+library("readxl")
+library("stringr")
+library("dplyr")
+library("metafor")
 
 # From now on any manual changes should be done to the divided datasets
 get_cor <- function(x, y){
   return(cor.test(y, x)$estimate)
 }
-
-# Load original meta-analysis:
-meta <- read_excel("data/Raw/Meta-analysis-8-Dec.xlsx")
-setDT(meta)
-meta$Study_ID
-
-
-# TESTING -----------------------------------------------------------------
-# according to https://onlinelibrary.wiley.com/doi/full/10.4073/cmpn.2016.3
-# Odds ratio goes from 0 to infinity with 1 being no effect.
-# Is that true!?!?!?!
-# If so this should be an OR of 1:
-escalc("OR",
-       ai = 5, #Rat_Absent.Prey_Neg,
-       bi = 5, #Rat_Absent.Prey_Pos,
-       ci = 5, #Rat_Present.Prey_Neg,
-       di = 5 #Rat_Present.Prey_Pos,
-       )
-# log odds of 0
-exp(0)
-# which is an odds ratio of 1
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ------------------------------------------
@@ -49,39 +25,22 @@ smd
 # View(smd)
 setDT(smd)
 
-# this one is 0 to 0:
-unique(meta[Study_ID == "study_53"]$Article)
-meta[Study_ID == "study_53" & scientificName == "Ptychoramphus aleuticus" &
-       Site == "Sea Caves"]
-
-x <- "study_1"
-smd[Study_ID == x]
-unique(smd$Study_ID)
-
 # Convert SE to SD:
 unique(smd$Prey_error_type)
 
 smd[Prey_error_type == "SE", `:=` (Prey_error_Rats_Absent = Prey_error_Rats_Absent * sqrt(Sample_size_overall_Rats_Absent),
                                    Prey_error_Rats_Present = Prey_error_Rats_Present * sqrt(Sample_size_overall_Rats_Present))]
 
-
-
-ggplot()+
-  geom_histogram(data = smd, aes(x = Prey_error_Rats_Absent),
-                 fill = "red", alpha = .5)+
-  geom_histogram(data = smd, aes(x = Prey_error_Rats_Present),
-                 fill = "blue", alpha = .5)
-
-smd[Prey_error_Rats_Absent > 750, ]
-
-meta[Study_ID %in% smd[Prey_error_Rats_Absent > 750, ]$Study_ID]
-#
+# Some of these are likely hyper overdispersed.
+# Check:
+smd[, cv_rats_absent := Prey_error_Rats_Absent / ifelse(Prey_mean_Rats_Absent == 0, 0.001, Prey_mean_Rats_Absent)]
+smd[, cv_rats_present := Prey_error_Rats_Present / ifelse(Prey_mean_Rats_Present == 0, 0.001, Prey_mean_Rats_Present)]
 smd
+# Those are actually ok.
 
-# I guess that should be kept huh?
 names(smd)
 
-smd <- escalc("SMD", # H for heteroscestic variance between populations
+smd <- escalc("SMDH", # H for heteroscestic variance between populations
               m2i = Prey_mean_Rats_Absent,
               m1i = Prey_mean_Rats_Present,
               sd2i = Prey_error_Rats_Absent,
@@ -94,7 +53,6 @@ smd <- escalc("SMD", # H for heteroscestic variance between populations
 setDT(smd)
 smd[, .(Study_ID, Prey_mean_Rats_Absent, Prey_mean_Rats_Present,
         yi, vi)]
-smd[Study_ID == x]
 
 
 ggplot(data = smd, aes(x = 1, y = yi))+
@@ -140,14 +98,9 @@ unique(smd.final$effect_size_type)
 
 unique(smd.final$analysis_group)
 
-# >>> Odds or risk ratio --------------------------------------------------
+# >>> Odds ratio --------------------------------------------------
 odds <- read_excel("data/Working_Databases/Odds Ratio-17Dec.xlsx")
 odds
-
-# Risk ratio or odds ratio?
-# Risk is number killed / all nests
-# odds is number killed / number survived
-# But it looks like metafor takes the same inputs
 
 odds <- escalc("OR",
                ai = Rat_Absent.Prey_Neg,
@@ -334,143 +287,3 @@ meta.final[, .(n = .N, refs = uniqueN(Article), effect_sizes = paste(unique(effe
 fwrite(meta.final, "builds/meta_analysis/compiled_ready_to_analyze.csv")
 meta.final
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~ ------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~~~ ------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~~~ ------------------------------------------------
-# ~~~~~~~~~~~~~~~~~~~~~~~~ ------------------------------------------------
-
-
-# DEPRECATED: -------------------------------------------------------------
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~ ------------------------------------------------
-
-# Add categorical analysis_group --------------------------------------
-#' 
-#' meta.final[, .(Long_term, effect_size_type, Abundance_reproduction)]
-#' 
-#' meta.final[Long_term == 1, .(effect_size_type, Abundance_reproduction)]
-#' 
-#' 
-#' meta.final[Long_term == 0 & Abundance_reproduction == "Presence-absence", .(effect_size_type, Abundance_reproduction)]
-#' 
-#' meta.final[Long_term == 0 & Abundance_reproduction == "Abundance", .(effect_size_type, Abundance_reproduction)]
-#' # OK...so these should be interconverted huh?
-#' meta.final[Long_term == 0 & Abundance_reproduction == "Reproduction", .(effect_size_type, Abundance_reproduction)]
-#' # Ah but SMD's are eradication studies...
-#' meta.final[effect_size_type == "SMD"]
-#' # Confusing shit.
-#' #
-#' # We want the following models: Abundance, Reproduction, Presence-absence, and Eradication abundance.
-#' meta.final[grepl("eradic", Description)]
-#' meta.final[, analysis_group := ifelse(grepl("eradic", Description),
-#'                                       "Before-after eradication abundance", NA)]
-#' 
-#' meta.final[Long_term == 1 & Abundance_reproduction %in% c("Presence-absence", "Abundance"), ]$analysis_group
-#' meta.final[Long_term == 1 & Abundance_reproduction %in% c("Presence-absence", "Abundance"), 
-#'            analysis_group := "Long-term abundance"]
-#' 
-#' meta.final[Long_term == 0 & Abundance_reproduction == "Abundance" &
-#'              !grepl("eradic", Description),]$effect_size_type
-#' meta.final[Long_term == 0 & Abundance_reproduction == "Abundance" &
-#'              !grepl("eradic", Description) &
-#'              effect_size_type == "SMD",]$Description
-#' 
-#' meta.final[Long_term == 0 & Abundance_reproduction == "Abundance" &
-#'              !grepl("eradic", Description), analysis_group := "Short-term abundance"]
-#' 
-#' meta.final[Long_term == 0 & Abundance_reproduction == "Reproduction" &
-#'              is.na(analysis_group), analysis_group := "Short-term reproduction"]
-#' 
-#' #' [Look at question column!!!]
-#' 
-#' #
-
-#' 
-#' 
-#' meta.final[effect_size_type == "SMD" & Long_term == 1, ]
-#' smd.final
-#' 
-#' 
-#' meta.final[Study_ID == "study_1"]
-#' # ok good. already converted.
-#' 
-#' meta.final[is.na(analysis_group), .(Study_ID, Long_term, Abundance_reproduction, Effect_type, effect_size_type)]
-
-# >>> Convert to shared effect size ---------------------------------------
-# From Introduction to Meta‐Analysis - 2009 - Borenstein
-# In Resources/References/
-# 
-# meta.sub <- meta.final[analysis_group == "Short-term reproduction"]
-# 
-# unique(meta.sub$effect_size_type)
-# 
-# # Looks like need to convert these to SMD.
-# meta.sub[effect_size_type == "OR", smd := effect_size * sqrt(3) / pi]
-# 
-# meta.sub[effect_size_type == "ZCOR", smd := 2 * r / sqrt(1 - r^2)]
-# # meta.sub[effect_size_type == "ZCOR", v := 1 / (n - 3)]
-
-# 
-# # Now variance:
-# meta.sub[, .(min_v = min(sampling_variance), max_v = max(sampling_variance)), by = .(effect_size_type)]
-# # these are roughly equivalent.
-# 
-# # Calculate variance with 1 / n-3 just like with zcor for consistency.
-# # meta.sub[effect_size_type == "ZCOR", v := 1 / (n - 3)]
-# # range(meta.sub[effect_size_type == "ZCOR",]$n, na.rm = T)
-# # 
-# # meta.sub[effect_size_type == "OR", .(Rat_Absent.Prey_Neg, Rat_Absent.Prey_Pos, Rat_Present.Prey_Pos, Rat_Present.Prey_Neg)]
-# # 
-# # meta.sub[effect_size_type == "OR", n := Rat_Absent.Prey_Neg + Rat_Absent.Prey_Pos + Rat_Present.Prey_Pos + Rat_Present.Prey_Neg]
-# # meta.sub[effect_size_type == "OR", ]$n
-# # 
-# # meta.sub[effect_size_type == "OR", v := 1 / (n - 3)]
-# # I think these will be too grossly different.
-# 
-# # Instead:
-# 
-# #
-# meta.sub[effect_size_type == "OR", v := sampling_variance * 3 / pi^2]
-# 
-# # Also, let's calculate sampling variance based on Borenstein formula instad of 
-# # using the zcor sampling-variance
-# meta.sub[effect_size_type == "ZCOR", sampling_variance := (1 - r^2)^2 / (n - 1)]
-# meta.sub[effect_size_type == "ZCOR",]$sampling_variance
-# 
-# meta.sub[effect_size_type == "ZCOR", .(effect_size, r)]
-# 
-# meta.sub[effect_size_type == "ZCOR", v := (4 * sampling_variance) / ((1 - r^2)^3)]
-# 
-# meta.sub[, .(min_v = min(v), max_v = max(v)), by = .(effect_size_type)]
-# 
-# range(meta.final$sampling_variance, na.rm = T)
-# # ok...
-# 
-# # Hmmmmm. V should never be greater than 1 should it??
-# meta.sub[v > 1, .(r, n, sampling_variance)]
-# 
-# # (4 * .5) / (1-0.4756945^2)^3
-# 
-# meta.sub[, effect_size_type := paste(effect_size_type, "converted to SMD")]
-# meta.sub[, `:=` (sampling_variance = v,
-#                  effect_size = smd)]
-# 
-# meta.sub[, `:=` (v = NULL,
-#                  smd = NULL)]
-# 
-# meta.final <- rbind(meta.final[!effect_size_id %in% meta.sub$effect_size_id],
-#                     meta.sub)
-# 
-# meta.final
-# 
-# meta.final <- meta.final[!is.na(effect_size)]
-# 
-# unique(meta.final$Original_study_design_effect_type)
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ------------------------------------------
-# Save --------------------------------------------------------------------
-# unique(meta.final$effect_size_type)
-#
-
-# fwrite(meta.final, "builds/meta_analysis/compiled_ready_to_analyze.csv")
