@@ -1,5 +1,8 @@
 #Aim: To plot island rodent eradication programs that overlap with threatened/extinct bird species and it's evidence 
-
+#
+rm(list = ls())
+gc()
+#
 # 1. Loading packages -----------------------------------------------------
 library(data.table)
 library(sf)
