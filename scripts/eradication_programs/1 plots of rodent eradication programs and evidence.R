@@ -24,8 +24,8 @@ world_sf <- st_as_sf(world_sf, crs = 4326)
 
 #For the factor levels and plots
 evidence_levels <- c(
-  "No studies", 
-  "No study in support", 
+  "No studies found", 
+  "All studies are not in support", 
   "Only predation in support",
   "Lethal program in support",
   "Population study without data in support",
@@ -34,8 +34,8 @@ evidence_levels <- c(
 )
 
 plot_col<-c(
-  "No studies" = "black",
-  "No study in support" = "grey20",
+  "No studies found" = "black",
+  "All studies are not in support" = "grey20",
   "Only predation in support" = "grey50",
   "Lethal program in support" = "indianred4",
   "Population study without data in support" = "dodgerblue4",
@@ -43,8 +43,8 @@ plot_col<-c(
   "Population study with all qualities in support" = "dodgerblue2"
 )
 
-col_pal <- c("No studies" = "transparent",
-             "No study in support" = "transparent",
+col_pal <- c("No studies found" = "transparent",
+             "All studies are not in support" = "transparent",
              "Only predation in support" = "transparent",
              "Lethal program in support" = "transparent",
              "Population study without data in support" = "transparent",

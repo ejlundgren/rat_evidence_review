@@ -1,0 +1,203 @@
+﻿SIS ID,Sequence,Family,Scientific name,Common name,RL Category,PE,PEW,Seabird,Waterbird,Landbird,Migratory status,Ecosystem - Terrestrial,Ecosystem - Freshwater,Ecosystem - Marine,RL AOO,Criteria met at highest level,RL EOO (smaller of breeding and non-breeding EOO),Population size (mature individuals),Population size derivation,Current population trend,Current population trend derivation
+22680021,5290,"Ducks, Geese, Swans",Tadorna cristata,Crested Shelduck,CR,False,False,False,True,False,Full migrant,False,True,True,0,D,14,1-49,estimated,Unknown,not applicable
+22680384,5570,"Ducks, Geese, Swans",Aythya baeri,Baer's Pochard,CR,False,False,False,True,False,Full migrant,False,True,False,0,A2cd+3cd+4cd; C2a(ii),2270000,150-700,inferred,Decreasing,inferred
+22680252,6090,"Ducks, Geese, Swans",Anas bernieri,Madagascar Teal,EN,False,False,False,True,False,Full migrant,True,True,True,0,C2a(ii),310000,630-1900,estimated,Decreasing,inferred
+22692073,22250,Cranes,Grus vipio,White-naped Crane,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2bcde+3bcde+4bcde,1400000,3700-4500,estimated,Decreasing,suspected
+22692167,22280,Cranes,Grus japonensis,Red-crowned Crane,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2ac+4ac; C1,2110000,"2000-2650,2300",estimated,Decreasing,estimated
+22692156,22290,Cranes,Grus americana,Whooping Crane,EN,False,False,False,True,False,Full migrant,True,True,True,0,D,306000,50-249,estimated,Increasing,estimated
+22692015,22480,Bustards,Houbaropsis bengalensis,Bengal Florican,CR,False,False,False,False,True,Full migrant,True,False,False,0,A3bcd+4abcd,1550000,250-999,estimated,Decreasing,estimated
+22692024,22490,Bustards,Sypheotides indicus,Lesser Florican,CR,False,False,False,False,True,Full migrant,True,False,False,0,A2bcd+3bcd+4bcd,520000,"356-1228, 730",estimated,Decreasing,estimated
+22697935,24810,"Petrels, Shearwaters",Pseudobulweria macgillivrayi,Fiji Petrel,CR,False,False,True,False,False,Full migrant,True,False,True,27,"C2a(i,ii);D",165000,1-49,estimated,Decreasing,estimated
+22697695,25110,Storks,Ciconia boyciana,Oriental Stork,EN,False,False,False,True,False,Full migrant,True,True,True,0,C2a(ii),941000,1000-2499,estimated,Decreasing,suspected
+22697488,25320,"Ibises, Spoonbills",Geronticus eremita,Northern Bald Ibis,EN,False,False,False,True,False,Full migrant,True,False,False,0,D,203000,200-249,estimated,Stable,suspected
+22693749,27570,Plovers,Pluvialis squatarola,Grey Plover,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2bcd+4bcd,19000000,1000000-2500000,estimated,Decreasing,estimated
+22693928,28330,Plovers,Anarhynchus frontalis,Wrybill,VU,False,False,False,True,False,Full migrant,False,True,True,0,C2a(i),23000,3000-3300,estimated,Decreasing,estimated
+22693199,28590,"Sandpipers, Snipes, Phalaropes",Numenius madagascariensis,Far Eastern Curlew,EN,False,False,False,True,False,Full migrant,True,True,True,0,A2bcd+4bcd,5590000,"20000-35000, 21000-28000",estimated,Decreasing,estimated
+22693162,28610,"Sandpipers, Snipes, Phalaropes",Limosa fedoa,Marbled Godwit,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2bc+4bc,4200000,270000,estimated,Decreasing,estimated
+22693154,28620,"Sandpipers, Snipes, Phalaropes",Limosa haemastica,Hudsonian Godwit,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2b+4b,6200000,41000-70000,estimated,Decreasing,estimated
+22693399,28850,"Sandpipers, Snipes, Phalaropes",Calidris fuscicollis,White-rumped Sandpiper,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2b+4b,4000000,"3270000-9070000, 6200000",estimated,Decreasing,estimated
+22693447,28860,"Sandpipers, Snipes, Phalaropes",Calidris subruficollis,Buff-breasted Sandpiper,VU,False,False,False,True,False,Full migrant,True,False,False,0,A2bc+4bc,3600000,84000-364000,estimated,Decreasing,estimated
+22693235,29470,"Sandpipers, Snipes, Phalaropes",Tringa flavipes,Lesser Yellowlegs,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2bcd+3bcd+4bcd,6100000,"527000-7600000,650000",estimated,Decreasing,estimated
+22693225,29540,"Sandpipers, Snipes, Phalaropes",Tringa guttifer,Spotted Greenshank,EN,False,False,False,True,False,Full migrant,True,True,True,0,C2a(ii),749000,900-1600,estimated,Decreasing,inferred
+22695180,35300,"Hawks, Eagles",Neophron percnopterus,Egyptian Vulture,EN,False,False,False,False,True,Full migrant,True,True,False,0,A2abcde+3bcde+4abcde,58000000,12400-36000,estimated,Decreasing,estimated
+22714757,89040,Reed-warblers,Acrocephalus griseldis,Basra Reed-warbler,EN,False,False,False,False,True,Full migrant,True,True,False,0,A3c,682000,1500-7000,suspected,Stable,suspected
+22712080,91330,Swallows and martins,Tachycineta cyaneoviridis,Bahama Swallow,EN,False,False,False,False,True,Full migrant,True,True,False,0,C2a(ii),49800,1000-2499,estimated,Decreasing,inferred
+22709717,109300,Old World Flycatchers and Chats,Calliope obscura,Blackthroat,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(i),223000,2500-9999,estimated,Decreasing,inferred
+22720966,122280,Old World Buntings,Emberiza aureola,Yellow-breasted Bunting,CR,False,False,False,False,True,Full migrant,True,True,False,0,A2acd+3cd+4acd,21800000,Unknown,estimated,Decreasing,estimated
+22722890,128630,Tanagers,Tangara peruviana,Black-backed Tanager,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2c+3c+4c; C2a(i),316000,2500-9999,estimated,Decreasing,suspected
+22679814,4520,"Ducks, Geese, Swans",Oxyura leucocephala,White-headed Duck,EN,False,False,False,True,False,Full migrant,True,True,False,0,A2bcde+4bcde,17600000,5300-8700,estimated,Decreasing,estimated
+22679954,4700,"Ducks, Geese, Swans",Branta ruficollis,Red-breasted Goose,VU,False,False,False,True,False,Full migrant,True,True,False,0,A2bcd+4bcd,1156000,"19000-48000, 33000",estimated,Decreasing,suspected
+22679869,4820,"Ducks, Geese, Swans",Anser cygnoid,Swan Goose,EN,False,False,False,True,False,Full migrant,True,True,True,0,A4bcd,3940000,36000-43500,estimated,Decreasing,estimated
+22679886,4860,"Ducks, Geese, Swans",Anser erythropus,Lesser White-fronted Goose,VU,False,False,False,True,False,Full migrant,True,True,False,0,A2bcd+3bcd+4bcd,7060000,16000-27000,estimated,Decreasing,suspected
+22680427,4890,"Ducks, Geese, Swans",Clangula hyemalis,Long-tailed Duck,VU,False,False,True,True,False,Full migrant,True,True,True,0,A4bce,60100000,Unknown,estimated,Decreasing,estimated
+22680415,4930,"Ducks, Geese, Swans",Polysticta stelleri,Steller's Eider,VU,False,False,True,True,False,Full migrant,True,True,True,0,A2bcd+3bcd+4bcd,9240000,Unknown,estimated,Decreasing,estimated
+22724836,4950,"Ducks, Geese, Swans",Melanitta fusca,Velvet Scoter,VU,False,False,True,True,False,Full migrant,True,True,True,0,A2abcde,14900000,141000-268000,estimated,Decreasing,estimated
+22680488,5080,"Ducks, Geese, Swans",Mergus squamatus,Scaly-sided Merganser,EN,False,False,False,True,False,Full migrant,True,True,False,0,C2a(ii),648000,2000-3500,estimated,Decreasing,inferred
+22680418,5130,"Ducks, Geese, Swans",Camptorhynchus labradorius,Labrador Duck,EX,False,False,True,True,False,Full migrant,True,False,True,0,,0,Unknown,,,not applicable
+22680358,5520,"Ducks, Geese, Swans",Aythya ferina,Common Pochard,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2abcd+3bcd+4abcd,548000,760000-790000,estimated,Decreasing,estimated
+22696606,6430,Grebes,Podiceps auritus,Horned Grebe,VU,False,False,True,True,False,Full migrant,True,True,True,0,A2abce+3bce+4abce,52900000,Unknown,estimated,Decreasing,suspected
+22696628,6490,Grebes,Podiceps gallardoi,Hooded Grebe,CR,False,False,False,True,False,Full migrant,False,True,True,0,A2abce+4ace,47300,650-800,estimated,Stable,observed
+22697387,6580,Flamingos,Phoenicoparrus andinus,Andean Flamingo,VU,False,False,False,True,False,Full migrant,True,True,False,0,A2acd+4acd,793000,Unknown,not applicable,Decreasing,suspected
+22690097,6740,"Pigeons, Doves",Columba eversmanni,Yellow-eyed Pigeon,VU,False,False,False,False,True,Full migrant,True,True,False,0,A2cd+3cd+4cd,3080000,10000-19999,suspected,Decreasing,suspected
+22690419,7060,"Pigeons, Doves",Streptopelia turtur,European Turtle-dove,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2bcd+3bcd+4bcd,35700000,12800000-47600000,estimated,Decreasing,suspected
+22690733,7580,"Pigeons, Doves",Ectopistes migratorius,Passenger Pigeon,EX,False,False,False,False,True,Full migrant,True,False,False,0,,0,0,,,not applicable
+22690281,7690,"Pigeons, Doves",Patagioenas caribaea,Ring-tailed Pigeon,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),9100,2500-9999,estimated,Decreasing,inferred
+22690895,7970,"Pigeons, Doves",Leptotila ochraceiventris,Ochre-bellied Dove,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2c+3c+4c,78500,2500-9999,estimated,Decreasing,suspected
+22686440,12720,Swifts,Cypseloides niger,Black Swift,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2ace+3ce+4ace,13000000,170000,estimated,Decreasing,estimated
+22686709,13010,Swifts,Chaetura pelagica,Chimney Swift,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2acd+3cd+4acd,8580000,7700000,estimated,Decreasing,estimated
+22684340,19290,Cuckoos,Coccyzus ferrugineus,Cocos Cuckoo,VU,False,False,False,False,True,Full migrant,True,False,False,0,D1+2,30,250-999,estimated,Stable,suspected
+22692353,20500,"Rails, Gallinules, Coots",Laterallus jamaicensis,Black Rail,EN,False,False,False,True,False,Full migrant,False,True,False,0,A2ace+3ce+4ace,40400000,10000-49999,suspected,Decreasing,estimated
+22692053,22200,Cranes,Leucogeranus leucogeranus,Siberian Crane,CR,False,False,False,True,False,Full migrant,True,True,False,0,A3bcd,2290000,Unknown,estimated,Decreasing,suspected
+22692064,22260,Cranes,Grus antigone,Sarus Crane,VU,False,False,False,True,False,Full migrant,True,True,False,0,A2bcde+4bcde,13065000,"15000-17500,16000",estimated,Decreasing,estimated
+22692151,22310,Cranes,Grus monacha,Hooded Crane,VU,False,False,False,True,False,Full migrant,True,True,True,0,"""B2ab(ii,iii,iv)""",2670000,9750-13000,estimated,Increasing,estimated
+22691900,22340,Bustards,Otis tarda,Great Bustard,EN,False,False,False,False,True,Full migrant,True,False,False,0,A3cd+4cd,15300000,29600-33000,estimated,Decreasing,estimated
+22733562,22360,Bustards,Chlamydotis macqueenii,Asian Houbara,VU,False,False,False,False,True,Full migrant,True,False,False,0,A4acd,13200000,33000-67000,estimated,Decreasing,inferred
+22697793,22980,Penguins,Eudyptes chrysolophus,Macaroni Penguin,VU,False,False,True,False,False,Full migrant,True,False,True,7400,A2bce+3bce+4bce,18700000,Unknown,estimated,Decreasing,estimated
+22734408,22990,Penguins,Eudyptes moseleyi,Northern Rockhopper Penguin,EN,False,False,True,False,False,Full migrant,False,False,True,250,A2acde+3cde+4acde,1840000,413700,estimated,Decreasing,estimated
+22735250,23000,Penguins,Eudyptes chrysocome,Southern Rockhopper Penguin,VU,False,False,True,False,False,Full migrant,False,False,True,3640,A2abcde+3bcde+4abcde,13100000,2500000,estimated,Decreasing,inferred
+22697789,23010,Penguins,Eudyptes sclateri,Erect-crested Penguin,EN,False,False,True,False,False,Full migrant,True,False,True,136,"A2b; B1ab(ii,v)+2ab(ii,v)",1300,150000,estimated,Decreasing,estimated
+22697782,23030,Penguins,Eudyptes robustus,Snares Penguin,VU,False,False,True,False,False,Full migrant,True,False,True,1,D2,15,63000,estimated,Stable,estimated
+22697817,23110,Penguins,Spheniscus humboldti,Humboldt Penguin,VU,False,False,True,False,False,Full migrant,True,False,True,0,A2bcde+3bcde+4bcde,2710000,23800,estimated,Decreasing,inferred
+22698471,23240,Southern Storm-petrels,Nesofregetta fuliginosa,Polynesian Storm-petrel,EN,False,False,True,False,False,Full migrant,True,False,True,500,C2a(i),32000000,250-999,estimated,Decreasing,estimated
+22698548,23290,Northern Storm-petrels,Hydrobates matsudairae,Matsudaira's Storm-petrel,VU,False,False,True,False,False,Full migrant,True,False,True,0,D2,270,Unknown,estimated,Unknown,
+22698562,23310,Northern Storm-petrels,Hydrobates homochroa,Ashy Storm-petrel,EN,False,False,True,False,False,Full migrant,True,False,True,1300,A2ce+3ce,434000,3500-6700,estimated,Decreasing,estimated
+132450926,23340,Northern Storm-petrels,Hydrobates socorroensis,Townsend's Storm-petrel,EN,False,False,True,False,False,Full migrant,True,False,True,12,B2ab(v),4950000,2500-9999,estimated,Decreasing,inferred
+132441735,23350,Northern Storm-petrels,Hydrobates cheimomnestes,Ainley's Storm-petrel,VU,False,False,True,False,False,Full migrant,True,False,True,0,D2,6310000,2500-9999,suspected,Stable,suspected
+132438298,23360,Northern Storm-petrels,Hydrobates leucorhous,Leach's Storm-petrel,VU,False,False,True,False,False,Full migrant,True,False,True,0,A2bce+3bce+4bce,337000000,6700000-8300000,estimated,Decreasing,estimated
+22698530,23380,Northern Storm-petrels,Hydrobates macrodactylus,Guadalupe Storm-petrel,CR,True,False,True,False,False,Full migrant,True,False,True,0,D,1,1-49,estimated,Unknown,
+22728323,23460,Albatrosses,Diomedea sanfordi,Northern Royal Albatross,EN,False,False,True,False,False,Full migrant,True,False,True,8,"A4bc; B2ab(iii,v)",115000000,17000,estimated,Decreasing,estimated
+22698314,23470,Albatrosses,Diomedea epomophora,Southern Royal Albatross,VU,False,False,True,False,False,Full migrant,True,False,True,750,D2,98600000,27200,estimated,Stable,estimated
+22698305,23480,Albatrosses,Diomedea exulans,Snowy Albatross,VU,False,False,True,False,False,Full migrant,True,False,True,1900,A4bd,128000000,20100,estimated,Decreasing,estimated
+22728318,23490,Albatrosses,Diomedea antipodensis,Antipodean Albatross,EN,False,False,True,False,False,Full migrant,True,False,True,670,A4bde,47000000,50000,estimated,Decreasing,estimated
+22698310,23500,Albatrosses,Diomedea amsterdamensis,Amsterdam Albatross,EN,False,False,True,False,False,Full migrant,True,False,True,7,D,11900000,92,observed,Increasing,suspected
+22728364,23510,Albatrosses,Diomedea dabbenena,Tristan Albatross,CR,False,False,True,False,False,Full migrant,True,False,True,80,A4ade,54900000,3400-4800,estimated,Decreasing,estimated
+22698431,23590,Albatrosses,Phoebetria fusca,Sooty Albatross,EN,False,False,True,False,False,Full migrant,True,False,True,1900,A4bd,76200000,21234-28656,estimated,Decreasing,suspected
+22698320,23610,Albatrosses,Phoebastria irrorata,Waved Albatross,CR,False,False,True,False,False,Full migrant,True,False,True,9,B2ab(v),2280000,Unknown,estimated,Decreasing,estimated
+22698335,23640,Albatrosses,Phoebastria albatrus,Short-tailed Albatross,VU,False,False,True,False,False,Full migrant,True,False,True,9,D2,53700000,1734,estimated,Increasing,estimated
+22698425,23650,Albatrosses,Thalassarche chlororhynchos,Atlantic Yellow-nosed Albatross,EN,False,False,True,False,False,Full migrant,True,False,True,80,A4bd; B2ab(v),29100000,35000-73500,estimated,Decreasing,estimated
+22728372,23660,Albatrosses,Thalassarche carteri,Indian Yellow-nosed Albatross,EN,False,False,True,False,False,Full migrant,True,False,True,1400,A4bde,43600000,82000,estimated,Decreasing,estimated
+22698398,23670,Albatrosses,Thalassarche chrysostoma,Grey-headed Albatross,EN,False,False,True,False,False,Full migrant,True,False,True,1800,A4bd,107000000,250000,estimated,Decreasing,estimated
+22728349,23690,Albatrosses,Thalassarche impavida,Campbell Albatross,VU,False,False,True,False,False,Full migrant,True,False,True,13,D2,36100000,43296,estimated,Increasing,estimated
+22698393,23730,Albatrosses,Thalassarche eremita,Chatham Albatross,VU,False,False,True,False,False,Full migrant,True,False,True,1,D2,59100000,11000,estimated,Stable,estimated
+22698388,23740,Albatrosses,Thalassarche salvini,Salvin's Albatross,VU,False,False,True,False,False,Full migrant,True,False,True,1,D2,142000000,79990,estimated,Unknown,
+104062579,23880,"Petrels, Shearwaters",Pachyptila macgillivrayi,MacGillivray's Prion,CR,False,False,True,False,False,Full migrant,True,False,True,0,A3be+4be,0,48300-2421480,estimated,Decreasing,inferred
+22697970,23960,"Petrels, Shearwaters",Pterodroma leucoptera,White-winged Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,20,"B2ab(ii,v); D2",152000000,2000-14000,estimated,Decreasing,suspected
+22697990,23980,"Petrels, Shearwaters",Pterodroma defilippiana,Masatierra Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,9,D2,1900000,5554,estimated,Stable,suspected
+22697997,23990,"Petrels, Shearwaters",Pterodroma longirostris,Stejneger's Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,13,D2,56600000,262000,estimated,Decreasing,suspected
+22697975,24000,"Petrels, Shearwaters",Pterodroma cookii,Cook's Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,320,A2e; D2,139000000,670000,estimated,Increasing,suspected
+22697984,24010,"Petrels, Shearwaters",Pterodroma pycrofti,Pycroft's Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,160,D2,98900000,12000-22000,estimated,Increasing,observed
+22697949,24040,"Petrels, Shearwaters",Pterodroma axillaris,Chatham Islands Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,2,A2be+4be; D2,46200000,1100,estimated,Increasing,estimated
+22698005,24080,"Petrels, Shearwaters",Pterodroma arminjoniana,Trindade Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,11,D2,139000000,2260,suspected,Stable,suspected
+22728442,24100,"Petrels, Shearwaters",Pterodroma atrata,Henderson Petrel,EN,False,False,True,False,False,Full migrant,True,False,True,76,B2ab(v),9820000,Unknown,estimated,Decreasing,suspected
+22698001,24110,"Petrels, Shearwaters",Pterodroma alba,Phoenix Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,460,"A2bce; B2ab(ii,iv,v)",28800000,20000-30000,estimated,Decreasing,inferred
+22698035,24120,"Petrels, Shearwaters",Pterodroma baraui,Barau's Petrel,EN,False,False,True,False,False,Full migrant,True,False,True,16,B2ab(v),31300000,30000-40000,estimated,Decreasing,suspected
+22698017,24140,"Petrels, Shearwaters",Pterodroma sandwichensis,Hawaiian Petrel,EN,False,False,True,False,False,Full migrant,True,False,True,370,A3bce+4bce,22000000,7500-16600,estimated,Decreasing,estimated
+22698020,24150,"Petrels, Shearwaters",Pterodroma phaeopygia,Galapagos Petrel,CR,False,False,True,False,False,Full migrant,True,False,True,220,A2bce,16800000,6000-15000,estimated,Decreasing,estimated
+22697957,24160,"Petrels, Shearwaters",Pterodroma cervicalis,White-necked Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,1,D2,75800000,100000,unknown,Increasing,suspected
+22698030,24170,"Petrels, Shearwaters",Pterodroma externa,Juan Fernandez Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,13,D2,45400000,Unknown,estimated,Stable,suspected
+22698088,24190,"Petrels, Shearwaters",Pterodroma cahow,Bermuda Petrel,EN,False,False,True,False,False,Full migrant,True,False,True,1,D,17500000,196,estimated,Increasing,observed
+22698092,24200,"Petrels, Shearwaters",Pterodroma hasitata,Black-capped Petrel,EN,False,False,True,False,False,Full migrant,True,False,True,20,"B2ab(ii,iii,v)",9060000,1000-2000,estimated,Decreasing,estimated
+22698097,24210,"Petrels, Shearwaters",Pterodroma caribbaea,Jamaican Petrel,CR,True,False,True,False,False,Full migrant,True,False,True,0,D,1,1-49,estimated,Unknown,
+22736135,24230,"Petrels, Shearwaters",Pterodroma deserta,Desertas Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,20,D1+2,61500000,250-999,estimated,Stable,estimated
+22698062,24240,"Petrels, Shearwaters",Pterodroma madeira,Zino's Petrel,EN,False,False,True,False,False,Full migrant,True,False,True,12,D,36900000,160,estimated,Stable,estimated
+22698049,24250,"Petrels, Shearwaters",Pterodroma magentae,Magenta Petrel,CR,False,False,True,False,False,Full migrant,True,False,True,2,A2ce,1850000,80-100,estimated,Increasing,estimated
+22698084,24260,"Petrels, Shearwaters",Pterodroma incerta,Atlantic Petrel,EN,False,False,True,False,False,Full migrant,True,False,True,64,B2ab(v),23300000,1800000,estimated,Decreasing,inferred
+22698140,24360,"Petrels, Shearwaters",Procellaria aequinoctialis,White-chinned Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,3300,A4bcde,173000000,3000000,estimated,Decreasing,inferred
+22728437,24370,"Petrels, Shearwaters",Procellaria conspicillata,Spectacled Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,9,D2,13700000,20000,estimated,Increasing,estimated
+22698155,24380,"Petrels, Shearwaters",Procellaria westlandica,Westland Petrel,EN,False,False,True,False,False,Full migrant,True,False,True,16,B2ab(iii),30600000,7900-13700,estimated,Unknown,
+22698150,24390,"Petrels, Shearwaters",Procellaria parkinsoni,Black Petrel,VU,False,False,True,False,False,Full migrant,True,False,True,160,D2,54300000,5500,estimated,Stable,suspected
+22698182,24420,"Petrels, Shearwaters",Ardenna bulleri,Buller's Shearwater,VU,False,False,True,False,False,Full migrant,True,False,True,2,D2,135000000,Unknown,estimated,Stable,suspected
+22698195,24470,"Petrels, Shearwaters",Ardenna creatopus,Pink-footed Shearwater,VU,False,False,True,False,False,Full migrant,True,False,True,150,D2,45000000,59146,estimated,Unknown,
+22698252,24570,"Petrels, Shearwaters",Puffinus huttoni,Hutton's Shearwater,EN,False,False,True,False,False,Full migrant,True,False,True,5,B2ab(iii),16700000,Unknown,estimated,Stable,suspected
+45354718,24590,"Petrels, Shearwaters",Puffinus bryani,Bryan's Shearwater,CR,False,False,True,False,False,Full migrant,True,False,True,0,"C2a(i,ii)",3110000,50-249,estimated,Decreasing,suspected
+132468585,24600,"Petrels, Shearwaters",Puffinus myrtae,Rapa Shearwater,CR,False,False,True,False,False,Full migrant,True,False,True,1,C2a(ii),126000,50-249,estimated,Decreasing,estimated
+132467692,24610,"Petrels, Shearwaters",Puffinus newelli,Newell's Shearwater,CR,False,False,True,False,False,Full migrant,True,False,True,710,A3bce+4bce,14800000,10000-19999,estimated,Decreasing,estimated
+22698235,24620,"Petrels, Shearwaters",Puffinus auricularis,Townsend's Shearwater,CR,False,False,True,False,False,Full migrant,True,False,True,9,"B2ab(i,ii,iii,v)",3200000,250-999,estimated,Decreasing,inferred
+22698272,24650,"Petrels, Shearwaters",Puffinus bannermani,Bannerman's Shearwater,EN,False,False,True,False,False,Full migrant,True,False,True,95,B2ab(v),1380000,Unknown,,Decreasing,inferred
+22698230,24670,"Petrels, Shearwaters",Puffinus yelkouan,Yelkouan Shearwater,VU,False,False,True,False,False,Full migrant,True,False,True,0,A4bcde,5480000,Unknown,estimated,Decreasing,estimated
+22728432,24680,"Petrels, Shearwaters",Puffinus mauretanicus,Balearic Shearwater,CR,False,False,True,False,False,Full migrant,True,False,True,9,A4bcde,7120000,19000,estimated,Decreasing,estimated
+22698277,24720,"Petrels, Shearwaters",Puffinus heinrothi,Heinroth's Shearwater,VU,False,False,True,False,False,Full migrant,True,False,True,0,D1+2,500000,250-999,estimated,Stable,suspected
+22697913,24830,"Petrels, Shearwaters",Pseudobulweria becki,Beck's Petrel,CR,False,False,True,False,False,Full migrant,True,False,True,0,"C2a(i,ii)",770000,50-249,estimated,Decreasing,suspected
+22697568,25200,"Ibises, Spoonbills",Platalea minor,Black-faced Spoonbill,VU,False,False,False,True,False,Full migrant,True,True,True,0,C2a(ii),460000,3000-5100,estimated,Stable,estimated
+22697237,25800,Herons,Gorsachius goisagi,Japanese Night Heron,VU,False,False,False,True,False,Full migrant,True,True,False,0,C2a(ii),1010000,5000-9999,suspected,Decreasing,inferred
+22697143,25990,Herons,Ardeola idae,Malagasy Pond Heron,EN,False,False,False,True,False,Full migrant,True,True,True,0,C2a(ii),1050000,1000-2499,estimated,Decreasing,inferred
+181501221,26040,Herons,Ardea occidentalis,Great White Heron,EN,False,False,False,True,False,Full migrant,True,True,True,0,C1,264000,1000-2499,estimated,Decreasing,estimated
+22696977,26340,Herons,Egretta eulophotes,Chinese Egret,VU,False,False,False,True,False,Full migrant,True,True,True,0,C2a(ii),444000,4000-6000,estimated,Decreasing,inferred
+22697742,26520,Frigatebirds,Fregata andrewsi,Christmas Island Frigatebird,VU,False,False,True,False,False,Full migrant,True,False,True,40,C1+2a(ii),40,"2400-5000,3700",estimated,Decreasing,estimated
+22696649,26550,"Gannets, Boobies",Papasula abbotti,Abbott's Booby,EN,False,False,True,False,False,Full migrant,True,False,True,92,"B2ab(ii,iii)",688000,6000,estimated,Stable,estimated
+22696802,26950,Cormorants,Phalacrocorax nigrogularis,Socotra Cormorant,VU,False,False,True,True,False,Full migrant,True,False,True,50,"A2bce+3ce+4bce; B2ab(i,ii,iii,iv,v)",1650000,220000,estimated,Decreasing,inferred
+22693570,27260,Magellanic Plover,Pluvianellus socialis,Magellanic Plover,VU,False,False,False,True,False,Full migrant,True,True,True,0,D1,204000,"250-999, 330",estimated,Stable,inferred
+230027154,27910,Plovers,Charadrius mongolus,Siberian Sandplover,EN,False,False,False,True,False,Full migrant,True,True,True,0,A2bce+4bce,3200000,18000-50000,suspected,Decreasing,estimated
+22694053,28260,Plovers,Vanellus gregarius,Sociable Lapwing,CR,False,False,False,True,False,Full migrant,True,False,False,0,A3bcd+4bcd,1670000,11200,estimated,Decreasing,estimated
+22693170,28550,"Sandpipers, Snipes, Phalaropes",Numenius borealis,Eskimo Curlew,CR,True,False,False,True,False,Full migrant,True,False,False,0,D,0,0-49,estimated,Unknown,not applicable
+22693185,28560,"Sandpipers, Snipes, Phalaropes",Numenius tenuirostris,Slender-billed Curlew,EX,False,False,False,False,True,Full migrant,True,True,True,0,,0,0,estimated,,not applicable
+22693359,28660,"Sandpipers, Snipes, Phalaropes",Calidris tenuirostris,Great Knot,EN,False,False,False,True,False,Full migrant,True,True,True,0,A2bcd+3bcd+4bcd,2600000,255000-340000,estimated,Decreasing,estimated
+22693464,28700,"Sandpipers, Snipes, Phalaropes",Calidris falcinellus,Broad-billed Sandpiper,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2bc+4bc,6100000,96000-136000,estimated,Decreasing,inferred
+22693414,28710,"Sandpipers, Snipes, Phalaropes",Calidris acuminata,Sharp-tailed Sandpiper,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2bce+3bce+4bce,820000,"60000-120000, 73000",estimated,Decreasing,estimated
+22693431,28730,"Sandpipers, Snipes, Phalaropes",Calidris ferruginea,Curlew Sandpiper,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2bcd+4bcd,3000000,420000-960000,estimated,Decreasing,estimated
+22693452,28760,"Sandpipers, Snipes, Phalaropes",Calidris pygmaea,Spoon-billed Sandpiper,CR,False,False,False,True,False,Full migrant,True,True,True,0,A2abcd; C1+2a(ii),355000,"240-620,490",estimated,Decreasing,estimated
+22693344,28980,"Sandpipers, Snipes, Phalaropes",Limnodromus griseus,Short-billed Dowitcher,VU,False,False,False,True,False,Full migrant,True,True,True,0,A2bd+3bd+4bd,5800000,"150000-320000,245000",estimated,Decreasing,estimated
+22693082,29200,"Sandpipers, Snipes, Phalaropes",Gallinago nemoricola,Wood Snipe,VU,False,False,False,True,False,Full migrant,True,True,False,0,C2a(ii),117700,2500-9999,estimated,Decreasing,inferred
+22694268,30090,"Gulls, Terns, Skimmers",Rynchops albicollis,Indian Skimmer,EN,False,False,False,True,False,Full migrant,True,True,False,0,C1+2a(ii),1400000,2450-2900,estimated,Decreasing,estimated
+22694436,30100,"Gulls, Terns, Skimmers",Saundersilarus saundersi,Saunders's Gull,VU,False,False,True,True,False,Full migrant,True,False,True,0,A3cde+4cde,531000,14400,estimated,Decreasing,suspected
+22694502,30160,"Gulls, Terns, Skimmers",Rissa brevirostris,Red-legged Kittiwake,VU,False,False,True,True,False,Full migrant,True,False,True,1740,A4ac,1320000,100000-499999,estimated,Decreasing,suspected
+22694497,30170,"Gulls, Terns, Skimmers",Rissa tridactyla,Black-legged Kittiwake,VU,False,False,True,True,False,Full migrant,True,False,True,0,A2abd+3bd+4abd,64100000,Unknown,estimated,Decreasing,estimated
+22694447,30340,"Gulls, Terns, Skimmers",Larus relictus,Relict Gull,VU,False,False,False,True,False,Full migrant,True,True,True,0,A3c,2670000,10000-19999,estimated,Decreasing,suspected
+22694313,30380,"Gulls, Terns, Skimmers",Larus audouinii,Audouin's Gull,VU,False,False,True,True,False,Full migrant,True,False,True,0,A4b,2200000,Unknown,estimated,Decreasing,estimated
+22694716,30780,"Gulls, Terns, Skimmers",Onychoprion aleuticus,Aleutian Tern,VU,False,False,True,True,False,Full migrant,True,True,True,0,A2bcde+3bcde+4cde,6660000,31000,estimated,Decreasing,inferred
+22694750,30940,"Gulls, Terns, Skimmers",Chlidonias albostriatus,Black-fronted Tern,EN,False,False,True,True,False,Full migrant,True,True,True,0,A2bce+3bce+4bce; C2a(ii),167000,1000-5000,estimated,Decreasing,estimated
+22694585,31130,"Gulls, Terns, Skimmers",Thalasseus bernsteini,Chinese Crested Tern,CR,False,False,True,True,False,Full migrant,True,False,True,60,"C2a(i,ii); D",114000,30-49,estimated,Decreasing,suspected
+22694927,31300,Auks,Fratercula arctica,Atlantic Puffin,VU,False,False,True,False,False,Full migrant,True,False,True,0,A4abcde,20800000,12000000-14000000,estimated,Decreasing,suspected
+22689055,34390,Typical Owls,Bubo scandiacus,Snowy Owl,VU,False,False,False,False,True,Full migrant,True,True,False,0,A2bd+3bd+4bd,38100000,14000-28000,estimated,Decreasing,estimated
+22695042,34870,Kites,Chelictinia riocourii,Scissor-tailed Kite,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2ace+3ce+4ace,9410000,30000-67000,suspected,Decreasing,suspected
+22695225,35580,"Hawks, Eagles",Gyps coprotheres,Cape Vulture,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2acde+3cde+4acde; C2a(ii),1230000,9600-12800,estimated,Decreasing,estimated
+22695207,35590,"Hawks, Eagles",Gyps rueppelli,Rüppell's Vulture,CR,False,False,False,False,True,Full migrant,True,False,False,0,A2abcd+3bcd+4abcd,14200000,22000,suspected,Decreasing,estimated
+22696027,35920,"Hawks, Eagles",Clanga clanga,Greater Spotted Eagle,VU,False,False,False,False,True,Full migrant,True,True,False,0,A2cde,15300000,3900-10000,suspected,Decreasing,suspected
+22696038,35940,"Hawks, Eagles",Aquila nipalensis,Steppe Eagle,EN,False,False,False,False,True,Full migrant,True,False,False,0,A2abcd+3bcd+4abcd,12600000,50000-75000,estimated,Decreasing,inferred
+22696048,35960,"Hawks, Eagles",Aquila heliaca,Eastern Imperial Eagle,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2cd+4cd,12700000,16000-20000,estimated,Decreasing,suspected
+22695379,36280,"Hawks, Eagles",Circus maurus,Black Harrier,EN,False,False,False,False,True,Full migrant,True,True,False,0,C2a(ii),1340000,251-999,estimated,Decreasing,estimated
+22695130,37060,"Hawks, Eagles",Haliaeetus leucoryphus,Pallas's Fish-eagle,EN,False,False,False,False,True,Full migrant,True,True,False,0,C2a(ii),1740000,1000-2499,estimated,Decreasing,inferred
+22695147,37090,"Hawks, Eagles",Haliaeetus pelagicus,Steller's Sea-eagle,VU,False,False,False,False,True,Full migrant,True,True,True,0,A3bce,2940000,3600-4670,estimated,Decreasing,inferred
+22682541,39170,Hornbills,Rhyticeros subruficollis,Plain-pouched Hornbill,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),47000,2500-5000,estimated,Decreasing,inferred
+22683249,40800,Kingfishers,Halcyon pileata,Black-capped Kingfisher,VU,False,False,False,False,True,Full migrant,True,True,True,0,A2bcd+4bcd,5160000,Unknown,not applicable,Decreasing,inferred
+22696432,47720,"Falcons, Caracaras",Falco vespertinus,Red-footed Falcon,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2abc+3bc+4abc,11900000,287500-400000,suspected,Decreasing,inferred
+22696446,47750,"Falcons, Caracaras",Falco concolor,Sooty Falcon,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),6140000,2800-4000,estimated,Decreasing,inferred
+22696495,47900,"Falcons, Caracaras",Falco cherrug,Saker Falcon,EN,False,False,False,False,True,Full migrant,True,True,True,0,A2bcde+3cde+4bcde,19100000,12200-29800,estimated,Decreasing,estimated
+22686251,48950,Parrots,Amazona pretrei,Red-spectacled Amazon,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2acd+3cde,161000,15600,estimated,Stable,estimated
+22685766,49900,Parrots,Rhynchopsitta pachyrhyncha,Thick-billed Parrot,EN,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),141000,840-2800,estimated,Decreasing,inferred
+22685219,50770,Parrots,Lathamus discolor,Swift Parrot,CR,False,False,False,False,True,Full migrant,True,False,False,0,A3ce,21500,1000-2499,estimated,Decreasing,suspected
+22685194,51010,Parrots,Neophema chrysostoma,Blue-winged Parrot,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2bc+4bc,370000,"7500-15000, 10000",suspected,Decreasing,inferred
+22685203,51040,Parrots,Neophema chrysogaster,Orange-bellied Parrot,CR,False,False,False,False,True,Full migrant,True,True,False,30,"A2ace; C2a(i,ii); D",12800,20-25,observed,Decreasing,estimated
+22698684,53330,Pittas,Pitta nympha,Fairy Pitta,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2bc+3bc+4bc,2920000,Unknown,not applicable,Decreasing,inferred
+22706449,73270,Old World Orioles,Oriolus mellianus,Silver Oriole,EN,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),236000,1000-10000,estimated,Decreasing,inferred
+22714704,88930,Reed-warblers,Acrocephalus sorghophilus,Streaked Reed-warbler,CR,False,False,False,False,True,Full migrant,True,True,False,0,A2bc,0,1-999,suspected,Decreasing,inferred
+22714696,88940,Reed-warblers,Acrocephalus paludicola,Aquatic Warbler,VU,False,False,False,False,True,Full migrant,True,True,False,1540,"B2ab(i,ii,iii,iv,v)",580000,18000-29000,estimated,Decreasing,inferred
+22728387,89030,Reed-warblers,Acrocephalus tangorum,White-browed Reed-warbler,VU,False,False,False,False,True,Full migrant,True,True,False,0,A3c+4c,520000,2000-20000,suspected,Decreasing,inferred
+22715559,90150,Grasshopper-warblers and grassbirds,Schoenicola striatus,Bristled Grassbird,VU,False,False,False,False,True,Full migrant,True,True,False,0,C2a(ii),2780000,6800-12800,estimated,Decreasing,inferred
+22712318,90900,Swallows and martins,Hirundo atrocaerulea,Blue Swallow,EN,False,False,False,False,True,Full migrant,True,True,False,0,C2a(ii),1310000,1500-3000,estimated,Decreasing,inferred
+22712107,91460,Swallows and martins,Progne sinaloae,Sinaloa Martin,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),326000,2500-9999,inferred,Decreasing,inferred
+22715353,94030,Leaf-warblers,Phylloscopus ijimae,Ijima's Leaf-warbler,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),133000,3270-10750,estimated,Decreasing,inferred
+22732350,100440,Laughingthrushes and allies,Pterorhinus courtoisi,Blue-crowned Laughingthrush,CR,False,False,False,False,True,Full migrant,True,False,False,0,"C2a(i,ii)",610,50-249,estimated,Decreasing,inferred
+22711108,104680,Mockingbirds and thrashers,Toxostoma bendirei,Bendire's Thrasher,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2ce+3ce+4ce,1070000,83000,estimated,Decreasing,estimated
+22728467,105450,Thrushes,Catharus bicknelli,Bicknell's Thrush,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2bc+3bc+4bc,790000,80000,estimated,Decreasing,inferred
+22708464,105650,Thrushes,Geokichla guttata,Spotted Ground-thrush,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(i); D1,3340000,250-999,estimated,Decreasing,inferred
+22708790,106650,Thrushes,Turdus feae,Grey-sided Thrush,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),322000,2500-9999,estimated,Decreasing,inferred
+103761460,108040,Old World Flycatchers and Chats,Cyornis brunneatus,Brown-chested Jungle-flycatcher,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2c+4c,1004000,Unknown,not applicable,Decreasing,suspected
+22709711,109140,Old World Flycatchers and Chats,Larvivora ruficeps,Rufous-headed Robin,EN,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),101000,500-10000,estimated,Decreasing,inferred
+22709346,109830,Old World Flycatchers and Chats,Ficedula subrubra,Kashmir Flycatcher,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),15000,5000-25000,estimated,Decreasing,inferred
+22710160,110440,Old World Flycatchers and Chats,Saxicola macrorhynchus,White-browed Bushchat,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),262000-722000,2500-15000,estimated,Decreasing,inferred
+22710172,110450,Old World Flycatchers and Chats,Saxicola insignis,White-throated Bushchat,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),232000,2500-9999,estimated,Decreasing,suspected
+22718591,118310,Pipits and Wagtails,Anthus spragueii,Sprague's Pipit,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2bce+4bce,1280000,1400000,estimated,Decreasing,estimated
+22720488,120660,Finches,Leucosticte atrata,Black Rosy-finch,EN,False,False,False,False,True,Full migrant,True,False,False,0,A2ac+3c+4ac,325000,10000-19999,estimated,Decreasing,suspected
+22728985,120670,Finches,Leucosticte australis,Brown-capped Rosy-finch,EN,False,False,False,False,True,Full migrant,True,False,False,0,A2ac+3c+4ac,117000,45000,estimated,Decreasing,suspected
+22720053,121460,Finches,Serinus syriacus,Syrian Serin,VU,False,False,False,False,True,Full migrant,True,False,False,6500,C2a(ii),24100,7000-9999,estimated,Decreasing,inferred
+22721040,121870,Longspurs,Calcarius ornatus,Chestnut-collared Longspur,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2bc+3bc+4bc,1150000,3100000,estimated,Decreasing,estimated
+103773037,123150,New World sparrows,Pipilo socorroensis,Socorro Towhee,EN,False,False,False,False,True,Full migrant,True,False,False,0,"B1ab(ii,iii)",170,2500-9999,estimated,Decreasing,suspected
+22721129,124080,New World sparrows,Ammospiza caudacuta,Saltmarsh Sparrow,EN,False,False,False,False,True,Full migrant,True,False,False,1999,A2ace+3ce+4ace,241000,37000-69000,estimated,Decreasing,estimated
+22724229,124390,New World blackbirds,Leistes defilippii,Pampas Meadowlark,VU,False,False,False,False,True,Full migrant,True,False,False,0,A2bc+3bc+4bc,127000,4000-6000,estimated,Decreasing,inferred
+22724329,125300,New World blackbirds,Euphagus carolinus,Rusty Blackbird,VU,False,False,False,False,True,Full migrant,True,True,False,0,A2cde+3cde+4cde,11300000,Unknown,estimated,Decreasing,estimated
+22721607,125680,New World warblers,Vermivora bachmanii,Bachman's Warbler,CR,True,False,False,False,True,Full migrant,True,False,False,0,D,1,1-49,estimated,Unknown,not applicable
+22721692,126360,New World warblers,Setophaga chrysoparia,Golden-cheeked Warbler,EN,False,False,False,False,True,Full migrant,True,False,False,1768,A2ace+3ce+4ace,77800,Unknown,not applicable,Decreasing,inferred
+103818207,130820,Tanagers,Sporophila beltoni,Tropeiro Seedeater,VU,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),81300,9000,estimated,Decreasing,inferred
+22723499,130980,Tanagers,Sporophila cinnamomea,Chestnut Seedeater,VU,False,False,False,False,True,Full migrant,True,True,False,0,A2cde+3cde+4cde; C2a(i),436000,2500-9999,estimated,Decreasing,suspected
+22723487,130990,Tanagers,Sporophila palustris,Marsh Seedeater,EN,False,False,False,False,True,Full migrant,True,False,False,0,C2a(ii),344000,2000-3000,estimated,Decreasing,inferred

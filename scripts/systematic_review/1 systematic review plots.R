@@ -1888,6 +1888,22 @@ bird_freq.wide[None > 0 , ]
 bird_freq.wide[is.na(synth_col)]
 
 # ----------- Number of bird species by synthetic column -------------------!
+#But before, let's add the single endemic species category + RedList status
+single_island <- read_xlsx("data/Working_Databases/single_island_endemic_classification.xlsx")
+setDT(single_island)
+table(single_island$single_island_endemic)
+
+spp_status <- unique(dat[,.(scientificName, redlistCategory)])
+table(spp_status$redlistCategory) #53 extinct species
+spp_status[is.na(redlistCategory), scientificName] #There's one species missing the RedList status
+spp_status[scientificName == "Porphyrio paepae", redlistCategory := "Extinct"]
+
+spp_status <- merge(spp_status, single_island[,.(scientificName, single_island_endemic)],
+                    by = "scientificName")
+
+bird_freq.wide <- merge(bird_freq.wide, spp_status,
+                        by = "scientificName")
+
 bird_freq <- bird_freq.wide[, .(no_species = uniqueN(scientificName)),
                                 by = .(synth_col, Rodent_attributed_final)]
 bird_freq
@@ -1898,11 +1914,21 @@ bird_freq[Rodent_attributed_final == "All rodents" & synth_col == "All studies a
 
 bird_freq[Rodent_attributed_final == "All rodents" & synth_col == "No studies found"]
 
-
 unique(dat$Evidence_effect)
 nrow(dat[Hypothesis_supported == 0 & Evidence_effect == "Abundance"]) / nrow(dat[Evidence_effect == "Abundance"])
 nrow(dat[Hypothesis_supported == 0 & Evidence_effect == "Reproductive_success"]) / nrow(dat[Evidence_effect == "Reproductive_success"])
 
+#Copy of bird freq for sys review for all extant species
+bird_freq_2 <- bird_freq.wide[, .(no_species = uniqueN(scientificName)),
+                            by = .(synth_col, Rodent_attributed_final, redlistCategory)]
+
+bird_freq_2 <- bird_freq_2[redlistCategory != "Extinct", ]
+
+#Copy of bird freq for sys review all extant multi-island species
+bird_freq_3 <- bird_freq.wide[, .(no_species = uniqueN(scientificName)),
+                              by = .(synth_col, Rodent_attributed_final, redlistCategory, single_island_endemic)]
+
+bird_freq_3 <- bird_freq_3[redlistCategory != "Extinct" & single_island_endemic != "yes", ]
 
 # ----------- Plot ------------------- !
 
@@ -1929,7 +1955,7 @@ labs <- c("Population study with all qualities in support" = "Population in supp
           "Lethal program in support" = "Lethal program in support (best)",
           "Only predation in support" = "Predation in support (only)",
           "All studies are not in support" = "All studies not in support",
-          "No studies found" = "No studies")
+          "No studies found" = "No studies found")
 #
 # pal1 <- c("Population studies with data in support" = "#8ACB88",
 #           "Other studies in support" = "#FFBF46",
@@ -1941,16 +1967,16 @@ pal2 <- c("Population study with all qualities in support" = "dodgerblue2",
           "Population study without data in support" = "dodgerblue4",
           "Lethal program in support" = "indianred4",
           "Only predation in support" = "grey50",
-          "No study in support" = "grey20",
-          "No studies" = "black")
+          "All studies are not in support" = "grey20",
+          "No studies found" = "black")
 
 col_pal <- c("Population study with all qualities in support" = "gold",
           "Population study with data in support" = "transparent",
           "Population study without data in support" = "transparent",
           "Lethal program in support" = "transparent",
           "Only predation in support" = "transparent",
-          "No study in support" = "transparent",
-          "No studies" = "transparent")
+          "All studies are not in support" = "transparent",
+          "No studies found" = "transparent")
 bird_freq
 
 bird_freq[synth_col == "Only predation in support"]
@@ -1978,6 +2004,13 @@ p_bird_freq <- ggplot(data = bird_freq[!is.na(synth_col), ],
 p_bird_freq
 
 # >>> Total number of studies ---------------------------------------------
+#Same as before, first add the single-island category
+dat[is.na(redlistCategory), scientificName]
+dat[scientificName == "Porphyrio paepae", redlistCategory := "Extinct"]
+
+dat <- merge(dat, single_island[,.(scientificName, single_island_endemic)],
+             by = "scientificName")
+
 unique(dat[, .(value, Hypothesis_supported)])
 unique(dat$Evidence_category)
 unique(dat$Evidence_effect)
@@ -1997,6 +2030,21 @@ study_freq <- dat[, .(number_studies = sum(value)),
                          Hypothesis_supported,
                          Quality_Study_Highlight)]
 study_freq
+
+#Copy of bird freq for sys review for all extant species
+study_freq_2 <- dat[redlistCategory != "Extinct", .(number_studies = sum(value)),
+                  by = .(Evidence_category_effect, 
+                         Evidence_category_effect_data,
+                         Hypothesis_supported,
+                         Quality_Study_Highlight)]
+
+#Copy of bird freq for sys review all extant multi-island species
+study_freq_3 <- dat[redlistCategory != "Extinct" & single_island_endemic != "yes", .(number_studies = sum(value)),
+                  by = .(Evidence_category_effect, 
+                         Evidence_category_effect_data,
+                         Hypothesis_supported,
+                         Quality_Study_Highlight)]
+
 
 # --------------------- Plot --------------------------------------------!
 
@@ -2071,6 +2119,12 @@ ggsave("figures/systematic_review/november_2024/main_text_evidence_summaries.png
 
 ggsave("figures/systematic_review/november_2024/main_text_evidence_summaries.pdf",
        width = 12, height = 8, dpi = 500)
+
+ggsave("figures/systematic_review/sys_rew_all_extant.pdf", plot = last_plot(), device = cairo_pdf, 
+       width = 11.46, height = 8.30)
+
+ggsave("figures/systematic_review/sys_rew_all_extant_multi-island.pdf", plot = last_plot(), device = cairo_pdf, 
+       width = 11.46, height = 8.30)
 
 # ~~~~~~~~~~~~~~~ ---------------------------------------------------------
 # Number of studies by type -----------------------------------------------
