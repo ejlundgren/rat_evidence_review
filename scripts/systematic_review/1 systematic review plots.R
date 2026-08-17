@@ -5,7 +5,7 @@ rm(list = ls())
 
 # library("pacmac")
 pacman::p_load("data.table", "ggplot2", "tidyr", "readxl",
-               "stringr", "dplyr", "patchwork")
+               "stringr", "dplyr", "patchwork", "writexl")
 
 theme_lundy <- theme_bw()+
   theme(panel.border = element_blank(),
@@ -1894,8 +1894,8 @@ setDT(single_island)
 table(single_island$single_island_endemic)
 
 spp_status <- unique(dat[,.(scientificName, redlistCategory)])
-table(spp_status$redlistCategory) #53 extinct species
-spp_status[is.na(redlistCategory), scientificName] #There's one species missing the RedList status
+table(spp_status$redlistCategory) #53 extinct species and one species missing the RedList status
+spp_status[redlistCategory == "", scientificName] #"Porphyrio paepae"
 spp_status[scientificName == "Porphyrio paepae", redlistCategory := "Extinct"]
 
 spp_status <- merge(spp_status, single_island[,.(scientificName, single_island_endemic)],
@@ -1914,6 +1914,12 @@ bird_freq[Rodent_attributed_final == "All rodents" & synth_col == "All studies a
 
 bird_freq[Rodent_attributed_final == "All rodents" & synth_col == "No studies found"]
 
+sum_bird_freq <- bird_freq[, Proportion :=  (no_species / sum(no_species)) * 100, by = Rodent_attributed_final]
+setorder(sum_bird_freq, Rodent_attributed_final)
+setnames(sum_bird_freq, "Rodent_attributed_final", "Rodent attributed")
+setnames(sum_bird_freq, "synth_col", "Evidence")
+setnames(sum_bird_freq, "no_species", "Bird species")
+
 unique(dat$Evidence_effect)
 nrow(dat[Hypothesis_supported == 0 & Evidence_effect == "Abundance"]) / nrow(dat[Evidence_effect == "Abundance"])
 nrow(dat[Hypothesis_supported == 0 & Evidence_effect == "Reproductive_success"]) / nrow(dat[Evidence_effect == "Reproductive_success"])
@@ -1924,11 +1930,33 @@ bird_freq_2 <- bird_freq.wide[, .(no_species = uniqueN(scientificName)),
 
 bird_freq_2 <- bird_freq_2[redlistCategory != "Extinct", ]
 
+sum_bird_freq_2 <- bird_freq_2[,.(
+  `Bird species`  = sum(no_species)
+), by = .(`Rodent attributed` = Rodent_attributed_final, Evidence = synth_col)]
+
+sum_bird_freq_2[, Proportion :=  (`Bird species` / sum(`Bird species`)) * 100, by = `Rodent attributed`]
+setorder(sum_bird_freq_2, `Rodent attributed`)
+
 #Copy of bird freq for sys review all extant multi-island species
 bird_freq_3 <- bird_freq.wide[, .(no_species = uniqueN(scientificName)),
                               by = .(synth_col, Rodent_attributed_final, redlistCategory, single_island_endemic)]
 
 bird_freq_3 <- bird_freq_3[redlistCategory != "Extinct" & single_island_endemic != "yes", ]
+
+sum_bird_freq_3 <- bird_freq_3[,.(
+  `Bird species`  = sum(no_species)
+), by = .(`Rodent attributed` = Rodent_attributed_final, Evidence = synth_col)]
+
+sum_bird_freq_3[, Proportion :=  (`Bird species` / sum(`Bird species`)) * 100, by = `Rodent attributed`]
+setorder(sum_bird_freq_3, `Rodent attributed`)
+
+#Save sum for sys rev all extant & all extant multi-island species
+sys_rev_filt <- list(
+  "sys_rev_all_included" = sum_bird_freq,
+  "sys_rev_all_extant"  = sum_bird_freq_2,
+  "sys_rev_all_extant_multi-island"  = sum_bird_freq_3)
+
+writexl::write_xlsx(sys_rev_filt, "builds/systematic_review/sys_rev_filt.xlsx")
 
 # ----------- Plot ------------------- !
 
