@@ -1267,8 +1267,30 @@ study_freq$proportion<-round(study_freq$proportion, digits = 2)
 
 # 6. Save builds  --------------------------------------------------
 #Full dataset including data of the review, eradication programs and threatened birds distribution
-Rodents_overlap_data[, distribution := NULL]
-fwrite(Rodents_overlap_data, "builds/eradication_programs/Rodents_overlap_data.csv")
+Rodents_overlap_data[, seasonal := NULL]
+
+setnames(Rodents_overlap_data, "scientificName", "Bird_scientific_name")
+setnames(Rodents_overlap_data, "synth_col", "Evidence")
+setnames(Rodents_overlap_data, "Eradication.ID", "Eradication_ID")
+setnames(Rodents_overlap_data, "Migratory status", "Migratory_status")
+setnames(Rodents_overlap_data, "single_island_endemic", "Single_island_endemic")
+setnames(Rodents_overlap_data, "Status (Eradication)", "Eradication_status")
+setnames(Rodents_overlap_data, "Island.Name", "Island_Name")
+setnames(Rodents_overlap_data, "geom", "Longitude_latitude")
+
+str(Rodents_overlap_data)
+coords <- st_coordinates(Rodents_overlap_data$Longitude_latitude)
+Rodents_overlap_data$Longitude <- coords[, 1]
+Rodents_overlap_data$Latitude <- coords[, 2]
+Rodents_overlap_data[, Longitude_latitude := NULL]
+
+Rodents_overlap_data <- Rodents_overlap_data[,.(
+  Bird_scientific_name, redlistCategory, Migratory_status, Single_island_endemic,
+  Evidence, Eradication_ID, Island_Name, Archipelago, Region, Country, Longitude, Latitude,
+  Rodent_attributed_final
+)]
+
+fwrite(Rodents_overlap_data, "builds/eradication_programs/Eradications.csv")
 
 #Data for each rodent species map
 saveRDS(m_musculus_island, "builds/eradication_programs/m_musculus_island.rds")
