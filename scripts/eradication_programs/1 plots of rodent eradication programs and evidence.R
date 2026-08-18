@@ -76,7 +76,7 @@ r_norvegicus_island <- readRDS("builds/eradication_programs/r_norvegicus_island.
 r_rattus_island <- readRDS("builds/eradication_programs/r_rattus_island.rds")
 
 #Overall data for eradication programs
-Rodents_overlap_data <- fread("builds/eradication_programs/Rodents_overlap_data.csv")
+Rodents_overlap_data <- fread("builds/eradication_programs/Eradications.csv")
 
 # 3. Organize data for plots -----------------------------------------------------
 #Make sure the best evidence is on top (for ploting)
