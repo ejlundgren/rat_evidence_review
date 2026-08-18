@@ -33,6 +33,20 @@ evidence_levels <- c(
   "Population study with all qualities in support"
 )
 
+freq_evidence_levels <- c(
+  "Predation",
+  "Population Reproductive success",
+  "Population Abundance"
+)
+
+freq_evidence_cat_levels <- c(
+  "Predation",
+  "Population Reproductive success 0",
+  "Population Reproductive success 1",
+  "Population Abundance 0",
+  "Population Abundance 1"
+)
+
 plot_col<-c(
   "No studies found" = "black",
   "All studies are not in support" = "grey20",
@@ -131,6 +145,12 @@ main_barplot<- ggplot(all_eradications,
 main_barplot
 
 #Add frequency of support and not in support studies for each evidence category
+study_freq[, Evidence_category_effect := factor(Evidence_category_effect, levels = freq_evidence_levels)]
+study_freq[, Evidence_category_effect_data := factor(Evidence_category_effect_data, levels = freq_evidence_cat_levels)]
+
+study_freq$Evidence_category_effect <- factor(study_freq$Evidence_category_effect, levels = rev(levels(study_freq$Evidence_category_effect)))
+study_freq$Evidence_category_effect_data <- factor(study_freq$Evidence_category_effect_data, levels = rev(levels(study_freq$Evidence_category_effect_data)))
+
 p_study_freq <- ggplot(data = study_freq[Evidence_category_effect != "NONE"],
                        aes(x = number_studies,
                            y = Evidence_category_effect,
@@ -140,10 +160,10 @@ p_study_freq <- ggplot(data = study_freq[Evidence_category_effect != "NONE"],
   geom_vline(xintercept = 0)+
   scale_color_manual(values = c("Highlight" = "gold",
                                 "No" = "transparent"))+
-  annotate(geom = "text", x = -50, y = 5.4,
+  annotate(geom = "text", x = -50, y = 3.4,
            label = "Not in support", size = 3.3, hjust = 0,
            color = "grey30")+
-  annotate(geom = "text", x = 50, y = 5.4,
+  annotate(geom = "text", x = 5, y = 3.4,
            label = "In support", size = 3.3, hjust = 0,
            color = "grey30")+
   scale_fill_manual(values = c("Predation" = "grey50",
@@ -171,6 +191,9 @@ p_study_freq
 main_figure_right <- cowplot::plot_grid(main_barplot, p_study_freq, ncol= 1, labels = c("B", "C"))
 main_figure <- cowplot::plot_grid(main_map, main_figure_right, nrow = 1, labels = c("A", ""), rel_widths = c(1, .4))
 main_figure
+
+ggsave("figures/eradication_programs/main_rodent_eradication.pdf", plot = last_plot(), device = cairo_pdf, 
+       width = 11.46, height = 8.30)
 
 ## Figure S3 -----------
 #Function to create map and barplots for each rodent species
@@ -221,3 +244,6 @@ legend <- cowplot::ggdraw(legend)
 
 all_rodent <- cowplot::plot_grid(all_rodent, legend, ncol = 1, rel_heights = c(1, .08))
 all_rodent
+
+ggsave("figures/eradication_programs/map_per_rodent_eradication.pdf", plot = last_plot(), device = cairo_pdf, 
+       width = 11.46, height = 8.30)

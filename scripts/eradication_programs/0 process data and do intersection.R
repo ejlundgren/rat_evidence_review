@@ -6,6 +6,7 @@ gc()
 # 1. Loading packages -----------------------------------------------------
 library(data.table)
 library(sf)
+library(terra)
 library(rnaturalearth)
 library(ggplot2)
 library(readxl)
@@ -13,7 +14,7 @@ library(writexl)
 
 # 2. Load data and builds --------------------------------------------------
 # NOTE FOR REVIEWERS:
-#All intermediate spatial outputs from the intersection between the bird species ranges and the rodent eradication programs, are provided in the builds folder.
+#All intermediate spatial outputs from the overlap between the bird species ranges and the rodent eradication programs, are provided in the builds folder.
 #redo <- FALSE by default. 
 #Set redo <- TRUE only if you have access to the BirdLife species range maps, available at https://datazone.birdlife.org/contact-us/request-our-data 
 
@@ -57,14 +58,183 @@ eradication_levels <- c(
 frequency_df[, synth_col := factor(synth_col, levels = evidence_levels)]
 data_DIISE[, `Status (Eradication)` := factor(`Status (Eradication)`, levels = eradication_levels)]
 
-#List of EX and threatened migratory birds
- #BirdLife International (2026) Data downloaded from https://datazone.birdlife.org on 13/08/2026.
+#List of extinct and threatened migratory bird species
+ #BirdLife International (2026) Data downloaded from https://datazone.birdlife.org on 17/08/2026
 migratory_list <- fread("data/Working_Databases/species-filter-results.csv")
 
 world_sf <- st_as_sf(ne_countries(scale = "medium", returnclass = "sf"))
 world_sf <- st_as_sf(world_sf, crs = 4326)
 
+#Plots theme 
+theme_lundy <- theme_bw()+
+  theme(panel.border = element_blank(),
+        panel.grid = element_blank(),
+        strip.background = element_blank())
+
+plot_col<-c(
+  "No studies found" = "black",
+  "All studies are not in support" = "grey20",
+  "Only predation in support" = "grey50",
+  "Lethal program in support" = "indianred4",
+  "Population study without data in support" = "dodgerblue4",
+  "Population study with data in support" = "dodgerblue2",
+  "Population study with all qualities in support" = "dodgerblue2"
+)
+
+col_pal <- c("No studies found" = "transparent",
+             "All studies are not in support" = "transparent",
+             "Only predation in support" = "transparent",
+             "Lethal program in support" = "transparent",
+             "Population study without data in support" = "transparent",
+             "Population study with data in support" = "transparent",
+             "Population study with all qualities in support" = "gold"
+)
+
+
 # 3. Which threatened birds are single island-endemics? --------------------------------------------------
+review_species #First we need to define which of these 340 spp are island endemic
+
+#Intersect the ranges of the attributed birds (converted to raster cells) with island polygons.
+#Species whose ranges overlapped only one island polygon are flagged as candidate single-island endemics.
+review_species_query <- paste0("SELECT * FROM all_species WHERE sci_name IN ('", 
+       paste(review_species, collapse = "','"), "')")
+
+redo <- FALSE
+
+if (redo) {
+  
+  #Create Raster template 
+r_template <- rast(
+  xmin = -180, xmax = 180,
+  ymin = -90, ymax = 90,
+  resolution = 1,
+  crs = "EPSG:4326"
+)
+  
+  #Read bird range rasters
+  ranges_sf <- st_read(
+    "databases/BirdLifemaps/BOTW_2024_2.gpkg",
+    query = review_species_query
+  )
+  
+  #Convert to terra
+  ranges_vect <- vect(ranges_sf)
+  rm(ranges_sf); gc()
+  
+  if (!same.crs(ranges_vect, r_template)) {
+    ranges_vect <- project(ranges_vect, r_template)
+  }
+  
+  #Rasterize by species
+  out <- rasterize(
+    ranges_vect,
+    r_template,
+    by = "sci_name",
+    field = 1,
+    background = NA, #0
+    touches = TRUE
+  )
+  
+  rm(ranges_vect); gc()
+  
+  #Convert to data table
+  dt <- as.data.frame(out, xy = TRUE)
+  setDT(dt)
+  rm(out); gc()
+  
+  dt_long <- melt(
+    dt,
+    id.vars = c("x", "y"),
+    variable.name = "species",
+    value.name = "presence"
+  )[presence == 1] # > 0
+  
+  rm(dt); gc()
+  
+  dt_long <- unique(dt_long)
+  
+  saveRDS(
+    dt_long,
+    file.path("builds/eradication_programs/birds_rast_cells.rds"))
+  
+  
+  rm(dt_long); gc()
+  
+
+} else {
+  
+  birds_rast_cells <- readRDS("builds/eradication_programs/birds_rast_cells.rds")
+  
+}
+
+unique(birds_rast_cells$species) #Great!
+
+#Load island and mainland polygons with area/label — Natural Earth's minor_islands
+islands_ne <- ne_download(scale = 10, type = "minor_islands",
+                          category = "physical", returnclass = "sf")
+land_ne10  <- ne_download(scale = 10, type = "land",
+                          category = "physical", returnclass = "sf")
+
+all_land <- st_make_valid(rbind(islands_ne[, "geometry"], land_ne10[, "geometry"]))
+
+#Convert multipolygons into individual discrete polygons and give each an ID
+all_land_single <- st_cast(all_land, "POLYGON")
+all_land_single$island_id <- seq_len(nrow(all_land_single))
+all_land_single$area_km2  <- as.numeric(st_area(all_land_single)) / 1e6
+
+#Separate mainlands (huge area) from discrete islands
+mainland_ids <- all_land_single$island_id[all_land_single$area_km2 > 2500000]
+
+#Convert species grid cells to sf points
+cells_sf <- st_as_sf(
+  birds_rast_cells[, .(x, y)],
+  coords = c("x", "y"),
+  crs    = 4326
+)
+
+#Also add a cell ID
+cells_sf$row_id <- seq_len(nrow(cells_sf))
+
+#Join species cells to island_id 
+pip <- st_join(cells_sf, all_land_single["island_id"], join = st_intersects)
+
+#Check for duplicates. Entries with count = 2
+table(table(pip$row_id)) #12
+
+#For now, exclude duplicates
+pip_dedup <- pip[!duplicated(pip$row_id), ]
+
+#Count DISTINCT non-mainland islands per species
+birds_rast_cells[, island_id := pip_dedup$island_id]
+
+island_counts <- birds_rast_cells[!is.na(island_id) & !(island_id %in% mainland_ids),
+                       .(n_distinct_islands = uniqueN(island_id)),
+                       by = species]
+
+single_island_true <- island_counts[n_distinct_islands == 1, species]
+length(single_island_true) #91 species are candidates for single island endemic
+
+#Check if those dup rows are an issue
+dup_rows <- pip$row_id[duplicated(pip$row_id) | duplicated(pip$row_id, fromLast = TRUE)]
+pip[pip$row_id %in% dup_rows, ]
+
+# Which species have cells at these ambiguous points?
+check_species <- birds_rast_cells[x %in% c(127.5, -74.5) & y %in% c(34.5, -52.5), 
+                       unique(species)]
+check_species
+
+#Of those, which are in the single_island_true list?
+intersect(check_species, single_island_true) #none of them, so no worries :-)
+
+ggplot() +
+  geom_sf(data = world_sf, fill = "grey85", color = "grey60", linewidth = 0.2) +
+  geom_point(data = birds_rast_cells[species %in% "Acrocephalus caffer"], aes(x = x, y = y),
+             color = "red", size = 0.5) 
+
+#Next step: visually inspect each species' mapped distribution and cross-check it against the 'Range description' 
+#in the corresponding BirdLife International species factsheet (datazone.birdlife.org) to confirm that the range did not extend across multiple islands
+
+#Final classification
 single_island <- read_xlsx("data/Working_Databases/single_island_endemic_classification.xlsx")
 setDT(single_island)
 table(single_island$single_island_endemic)
@@ -75,6 +245,7 @@ spp_status <- unique(data_review[,.(scientificName, redlistCategory)])
 spp_status <- merge(spp_status, migratory_list[,.(`Scientific name`, `Migratory status`)],
                     by.x = "scientificName", by.y ="Scientific name", all.x = TRUE)
 spp_status[is.na(`Migratory status`), `Migratory status` := "Not a Migrant"]
+table(spp_status$`Migratory status`) #72 species are full migrant
 
 spp_status <- merge(spp_status, single_island[,.(scientificName, distribution, single_island_endemic)],
                     by = "scientificName")
@@ -83,6 +254,7 @@ frequency_df <- merge(frequency_df, spp_status, by = "scientificName")
 frequency_df #Nice :-)
 
 table(frequency_df$redlistCategory) #There's a spp without Red List status 
+frequency_df[redlistCategory == "", scientificName] #Porphyrio paepae
 frequency_df[scientificName == "Porphyrio paepae", redlistCategory := "Extinct"]
 
 freq_studies <- frequency_df[synth_col!="No studies"] #These are the bird species with evidence (studies)
@@ -97,7 +269,9 @@ freq_df_m_musculus<-frequency_df[Rodent_attributed_final=="Mus musculus"]
 
 summary_m_musculus <-freq_df_m_musculus[, .N, by = synth_col]
 summary_m_musculus[, perc := (N / sum(N))*100]
-summary_m_musculus #47.22% bird species have no studies and 52.77% have studies, of these, No study in support: 2.77%, Only predation in support:41.66%, Population study without data in support:8.33%
+summary_m_musculus
+#45.45% bird species have no studies and 54.55% have studies, of these,
+#No study in support: 3.03%, Only predation in support:45.45%, Population study without data in support:6.06%
 
 freq_m_musculus_no_studies <- frequency_df[Rodent_attributed_final=="Mus musculus" & synth_col=="No studies found"]
 studies_m_musculus<- freq_studies[Rodent_attributed_final=="Mus musculus"]
@@ -156,17 +330,6 @@ if (redo) {
 #Add the eradication type
 m_musculus_DIISE_bird_overlap <- merge(m_musculus_DIISE_bird_overlap, DIISE_m_musculus[,.(`Eradication ID`, `Status (Eradication)`)], by.x = "Eradication.ID", by.y = "Eradication ID")
 
-#Plot bird ranges according to the different seasonal categories 
-# m_musculus_DIISE_bird_overlap_sf <- st_as_sf(m_musculus_DIISE_bird_overlap)
-# 
-# ggplot() +
-#   geom_sf(data = world_sf, fill = "gray90", color = "black", size = 0.1) +
-#   geom_sf(data = m_musculus_DIISE_bird_overlap_sf[m_musculus_DIISE_bird_overlap_sf$scientificName == "Rowettia goughensis", ], #m_musculus_DIISE_bird_overlap_sf[m_musculus_DIISE_bird_overlap_sf$sci_name == "Diomedea dabbenena", ]
-#           aes(color = factor(seasonal))) +
-#   scale_color_brewer(palette = "Set1")
-# 
-# table(m_musculus_DIISE_bird_overlap$seasonal) #no migratory ranges are present, only resident, breeding and non-breeding areas.
-
 #Clean the df
 #setDT(m_musculus_DIISE_bird_overlap)
 m_musculus_DIISE_bird_overlap <- m_musculus_DIISE_bird_overlap[, .(
@@ -187,44 +350,30 @@ m_musculus_DIISE_bird_overlap <- m_musculus_DIISE_bird_overlap[,.(
 #This df includes data of the review, rodent eradication programs and birds distribution
 m_musculus_DIISE_bird_overlap[, Rodent_attributed_final := "Mus musculus"]
 
+#overlaps between bird species ranges and eradication sites should only include:
+#breeding-season range polygons, for migratory species (BirdLife International seasonal code 2),
+#and resident, breeding and non-breeding range polygons for non-migratory species (seasonal code 1, 2, 3)
+#the passage and seasonal occurrence range (codes 4–5) were excluded as it refers to temporal and uncertain ranges
+
+table(m_musculus_DIISE_bird_overlap$seasonal)
+
+#How many species overlapped before filtering?
+x <-unique(m_musculus_DIISE_bird_overlap$scientificName) #20 species out of 33 species
+
+#Filter out from the overlap the resident range of those species that are fully migrant since the overlap is potentially a false positive
+m_musculus_DIISE_bird_overlap <- m_musculus_DIISE_bird_overlap[`Migratory status` != "Full migrant" | !seasonal %in% c(1,3,4,5), ]
+unique(m_musculus_DIISE_bird_overlap$scientificName) #Instead of 20 species, 14 truly overlapped
+ex_m_musculus <- setdiff(x, unique(m_musculus_DIISE_bird_overlap$scientificName)) 
+ex_m_musculus #Excluded spp: "Hydrobates leucorhous" "Larus heermanni" "Pachyptila macgillivrayi" "Pterodroma arminjoniana" "Pterodroma externa" "Puffinus opisthomelas"
+
 #How many bird species distribution overlap with the house mouse eradications?
-unique(m_musculus_DIISE_bird_overlap$scientificName) #20 species out of 33 species!
+length(unique(m_musculus_DIISE_bird_overlap$scientificName)) #14 species out of 33 species!
 
 #How many islands?
-unique(m_musculus_DIISE_bird_overlap$Island.Name) #44 islands!
+length(unique(m_musculus_DIISE_bird_overlap$Island.Name)) #13 islands! (instead of 44)
 
 #How many eradications?
-length(unique(m_musculus_DIISE_bird_overlap$Eradication.ID)) #47 eradications!
-
-#Now check if there are fully migrant species with island distribution
-#' m_musculus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ] #Pachyptila macgillivrayi
-#' 
-#' #Filter out from the overlap the resident range of those species that are fullly migrant since the overlap is potentially a false positive
-#' x <- m_musculus_DIISE_bird_overlap[`Migratory status` != "Full migrant" | seasonal != 1, ]
-#' x <- rbind(x, m_musculus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ])
-#' unique(x$scientificName) #Instead of 20 species, 17 truly overlapped
-#' ex_m_musculus <- setdiff(unique(m_musculus_DIISE_bird_overlap$scientificName), unique(x$scientificName)) #Excluded spp: "Hydrobates leucorhous"   "Pterodroma arminjoniana" "Pterodroma externa"
-#' 
-#' #'*continue from here, but try this same thing with the other spp*
-#' 
-#' 
-#' table(m_musculus_DIISE_bird_overlap$scientificName)
-#' table(x$scientificName)
-#' table(m_musculus_DIISE_bird_overlap$redlistCategory) #No extinct species
-#' table(m_musculus_DIISE_bird_overlap$`Migratory status`)
-#' table(m_musculus_DIISE_bird_overlap$synth_col)
-#' table(m_musculus_DIISE_bird_overlap$single_island_endemic) #No single-island endemic species
-#' table(m_musculus_DIISE_bird_overlap$distribution) #85 out of 89 overlapped points are with spp that have a large distribution..
-#' table(m_musculus_DIISE_bird_overlap$seasonal)
-#' table(m_musculus_DIISE_bird_overlap[distribution == "mixed", seasonal])
-#' table(m_musculus_DIISE_bird_overlap[single_island_endemic == "yes", synth_col])
-#' unique(m_musculus_DIISE_bird_overlap[seasonal != 1 & distribution == "mixed", scientificName]) #12 species
-#' unique(m_musculus_DIISE_bird_overlap[distribution == "mixed", scientificName]) #17 species
-#' setdiff(unique(m_musculus_DIISE_bird_overlap[distribution == "mixed", scientificName]),
-#'         unique(m_musculus_DIISE_bird_overlap[seasonal != 1 & distribution == "mixed", scientificName])) #5 spp are not included if we don't use the resident range
-
-#maybe it makes sense to only use the breeding range for those spp with large distribution...
-#the breeding range is very localized, opposite to the resident range
+length(unique(m_musculus_DIISE_bird_overlap$Eradication.ID)) #13 eradications! (instead of 47)
 
 #For the maps, plot the eradication programs with the best possible evidence 
 #Select the best evidence row per island
@@ -266,8 +415,11 @@ freq_df_r_exulans<-frequency_df[Rodent_attributed_final=="Rattus exulans"]
 
 summary_r_exulans <-freq_df_r_exulans[, .N, by = synth_col]
 summary_r_exulans[, perc := (N / sum(N))*100]
-summary_r_exulans #75.42% bird species have no studies and 24.57% have studies, of these, Lethal program in support: 2.54%, Only predation in support:8.47%, Population study without data in support:2.54%
-#Population study with all qualities in support: 0.84%, No study in support: 8.47%, Population study with data in support:1.69%
+summary_r_exulans 
+#75% bird species have no studies and 25% have studies, of these,
+#Lethal program in support: 2.58%, Only predation in support:8.62%, No study in support: 8.62%,#
+#Population study without data in support:2.58%,  Population study with data in support:1.72%
+#Population study with all qualities in support: 0.86%
 
 freq_r_exulans_no_studies <- frequency_df[Rodent_attributed_final=="Rattus exulans" & synth_col=="No studies found"]
 studies_r_exulans<- freq_studies[Rodent_attributed_final=="Rattus exulans"]
@@ -281,8 +433,7 @@ merge_studies_r_exulans<- merge(studies_r_exulans,
 merge_studies_r_exulans <- merge_studies_r_exulans[
   !(
     (synth_col == "Only predation in support" & Hypothesis_supported == 0) |
-      (synth_col == "Population study with all qualities in support" & Hypothesis_supported == 0) |
-      (synth_col == "Population study without data in support" & Hypothesis_supported == 0)
+      (synth_col == "Population study with all qualities in support" & Hypothesis_supported == 0)
   )
 ]
 
@@ -343,26 +494,28 @@ r_exulans_DIISE_bird_overlap<- r_exulans_DIISE_bird_overlap[,.(
 )]
 
 #This df includes data of the review, rodent eradication programs and birds distribution
-r_exulans_DIISE_bird_overlap[, Rodent_attributed_final := "Rattus exulans"] #maybe join Pseudobulweria macgillivrayi
+r_exulans_DIISE_bird_overlap[, Rodent_attributed_final := "Rattus exulans"] 
+
+table(r_exulans_DIISE_bird_overlap$seasonal) #29 rows with seasonal code 4. Exclude them
+r_exulans_DIISE_bird_overlap <- r_exulans_DIISE_bird_overlap[seasonal != 4, ]
+
+#How many species overlapped before filtering?
+x2 <-unique(r_exulans_DIISE_bird_overlap$scientificName) #31 species out of 116 species
+
+#Filter out from the overlap the resident range of those species that are fully migrant since the overlap is potentially a false positive
+r_exulans_DIISE_bird_overlap <- r_exulans_DIISE_bird_overlap[`Migratory status` != "Full migrant" | !seasonal %in% c(1,3,4,5), ]
+unique(r_exulans_DIISE_bird_overlap$scientificName) #Instead of 31 species, 24 truly overlapped
+ex_r_exulans <- setdiff(x2, unique(r_exulans_DIISE_bird_overlap$scientificName)) 
+ex_r_exulans #Excluded spp: "Procellaria parkinsoni" "Procellaria westlandica"  "Pseudobulweria macgillivrayi" "Pseudobulweria rostrata" "Pterodroma sandwichensis" "Puffinus newelli" "Sterna striata"       
 
 #How many bird species distribution overlap with the pacific rat eradications?
-unique(r_exulans_DIISE_bird_overlap$scientificName) #31 species out of 116 species!
+length(unique(r_exulans_DIISE_bird_overlap$scientificName)) #24 species out of 116 species!
 
 #How many islands?
-unique(r_exulans_DIISE_bird_overlap$Island.Name) #151 islands!
+length(unique(r_exulans_DIISE_bird_overlap$Island.Name)) #96 islands! (instead of 151)
 
 #How many eradications?
-length(unique(r_exulans_DIISE_bird_overlap$Eradication.ID)) #164 eradications!
-
-#Now check if there are fully migrant species with island distribution
-# r_exulans_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ] #many spp
-# 
-# #Filter out from the overlap the resident range of those species that are fullly migrant since the overlap is potentially a false positive
-# x2 <- r_exulans_DIISE_bird_overlap[`Migratory status` != "Full migrant" | seasonal != 1, ]
-# #x <- rbind(x, m_musculus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ])
-# unique(x2$scientificName) #Instead of 31 species, 26 truly overlapped
-# ex_r_exulans <- setdiff(unique(r_exulans_DIISE_bird_overlap$scientificName), unique(x2$scientificName)) #5 spp excl: "Procellaria parkinsoni"       "Procellaria westlandica"      "Pseudobulweria macgillivrayi" "Pterodroma sandwichensis"     "Puffinus newelli"  
-
+length(unique(r_exulans_DIISE_bird_overlap$Eradication.ID)) #101 eradications! (instead of 164)
 
 #To make the maps, plot the eradications with the best possible evidence 
 summary_DIISE_bird_r_exulans <- r_exulans_DIISE_bird_overlap[, .(
@@ -401,9 +554,10 @@ freq_df_r_norvegicus<-frequency_df[Rodent_attributed_final=="Rattus norvegicus"]
 
 summary_r_norvegicus <-freq_df_r_norvegicus[, .N, by = synth_col]
 summary_r_norvegicus[, perc := (N / sum(N))*100]
-summary_r_norvegicus #74.15% bird species have no studies and 25.84% have studies, of these,
-#Lethal program in support: 1.68%, Only predation in support:12.92%, Population study without data in support:2.80%
-#Population study with all qualities in support: 0.56%, No study in support: 7.3%, Population study with data in support:0.56%
+summary_r_norvegicus
+#74.15% bird species have no studies and 25.84% have studies, of these,
+# No study in support: 7.3%, Only predation in support:12.92%, Lethal program in support: 1.68%, Population study without data in support:2.80%
+#Population study with data in support:0.56%, Population study with all qualities in support: 0.56%
 
 freq_r_norvegicus_no_studies <- frequency_df[Rodent_attributed_final=="Rattus norvegicus" & synth_col=="No studies found"]
 studies_r_norvegicus<- freq_studies[Rodent_attributed_final=="Rattus norvegicus"]
@@ -419,8 +573,7 @@ merge_studies_r_norvegicus <- merge_studies_r_norvegicus[
     (synth_col =="Population study with all qualities in support"  & Hypothesis_supported == 0) |
       (synth_col == "Population study with data in support" & Hypothesis_supported == 0) |
       (synth_col == "Only predation in support" & Hypothesis_supported == 0) |
-      (synth_col == "Lethal program in support" & Hypothesis_supported == 0) |
-      (synth_col == "Population study without data in support" & Hypothesis_supported == 0) 
+      (synth_col == "Lethal program in support" & Hypothesis_supported == 0) 
   )
 ]
 
@@ -484,24 +637,28 @@ r_norvegicus_DIISE_bird_overlap<- r_norvegicus_DIISE_bird_overlap[,.(
 #This df includes data of the review, rodent eradication programs and birds distribution
 r_norvegicus_DIISE_bird_overlap[, Rodent_attributed_final := "Rattus norvegicus"]
 
+table(r_norvegicus_DIISE_bird_overlap$seasonal) #87 rows with seasonal code 4. Exclude them
+r_norvegicus_DIISE_bird_overlap <- r_norvegicus_DIISE_bird_overlap[seasonal != 4, ]
+
+#How many species overlapped before filtering?
+x3 <-unique(r_norvegicus_DIISE_bird_overlap$scientificName) #38 species out of 178 species
+
+#Filter out from the overlap the resident range of those species that are fully migrant since the overlap is potentially a false positive
+r_norvegicus_DIISE_bird_overlap <- r_norvegicus_DIISE_bird_overlap[`Migratory status` != "Full migrant" | !seasonal %in% c(1,3,4,5), ]
+unique(r_norvegicus_DIISE_bird_overlap$scientificName) #Instead of 38 species, 26 truly overlapped
+ex_r_norvegicus <- setdiff(x3, unique(r_norvegicus_DIISE_bird_overlap$scientificName)) 
+ex_r_norvegicus
+#"Ardenna carneipes" "Ardenna creatopus" "Calonectris leucomelas" "Chlidonias albostriatus" "Eudyptes pachyrhynchus" "Larus bulleri"
+#"Procellaria cinerea" "Procellaria westlandica" "Pterodroma cahow" "Pterodroma hasitata" "Puffinus mauretanicus" "Sterna striata"
+
 #How many bird species distribution overlap with the brown rat eradications?
-unique(r_norvegicus_DIISE_bird_overlap$scientificName) # 38 out of 178 species!
+length(unique(r_norvegicus_DIISE_bird_overlap$scientificName)) # 26 out of 178 species!
 
 #How many islands?
-unique(r_norvegicus_DIISE_bird_overlap$Island.Name) #237 islands!
+length(unique(r_norvegicus_DIISE_bird_overlap$Island.Name)) #146 islands! (instead of 237)
 
 #How many eradications?
-length(unique(r_norvegicus_DIISE_bird_overlap$Eradication.ID)) #283 eradications!
-
-#Now check if there are fully migrant species with island distribution
-# m_musculus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ] #Pachyptila macgillivrayi 
-# 
-# #Filter out from the overlap the resident range of those species that are fullly migrant since the overlap is potentially a false positive
-# x3 <- r_norvegicus_DIISE_bird_overlap[`Migratory status` != "Full migrant" | seasonal != 1, ]
-# #x <- rbind(x, m_musculus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ])
-# unique(x3$scientificName) #Instead of 20 species, 17 truly overlapped
-# ex_r_norvegicus <- setdiff(unique(r_norvegicus_DIISE_bird_overlap$scientificName), unique(x3$scientificName)) #Excluded spp: "Hydrobates leucorhous"   "Pterodroma arminjoniana" "Pterodroma externa"
-
+length(unique(r_norvegicus_DIISE_bird_overlap$Eradication.ID)) #178 eradications! (instead of 283)
 
 #To make the maps, plot the eradications with the best possible evidence 
 summary_DIISE_bird_r_norvegicus <- r_norvegicus_DIISE_bird_overlap[, .(
@@ -541,9 +698,10 @@ freq_df_r_rattus<-frequency_df[Rodent_attributed_final=="Rattus rattus"]
 
 summary_r_rattus <-freq_df_r_rattus[, .N, by = synth_col]
 summary_r_rattus[, perc := (N / sum(N))*100]
-summary_r_rattus #63.25% bird species have no studies and 36.74% have studies, of these,
-#Lethal program in support: 2.82%, Only predation in support:12.01%, Population study without data in support:6.36%
-#Population study with all qualities in support: 1.41%, No study in support: 10.95%, Population study with data in support:3.18%
+summary_r_rattus
+#62.98% bird species have no studies and 37.02% have studies, of these,
+#No study in support: 11.03%, Only predation: 12.09%, Lethal program in support: 2.84%, Population study without data in support:6.40%
+#Population study with data in support: 3.20%, Population study with all qualities in support: 1.42% 
 
 freq_r_rattus_no_studies <- frequency_df[Rodent_attributed_final=="Rattus rattus" & synth_col=="No studies found"]
 studies_r_rattus<- freq_studies[Rodent_attributed_final=="Rattus rattus"]
@@ -559,8 +717,7 @@ merge_studies_r_rattus <- merge_studies_r_rattus[
     (synth_col =="Population study with all qualities in support"  & Hypothesis_supported == 0) |
       (synth_col == "Population study with data in support" & Hypothesis_supported == 0) |
       (synth_col == "Only predation in support" & Hypothesis_supported == 0) |
-      (synth_col == "Lethal program in support" & Hypothesis_supported == 0) |
-      (synth_col == "Population study without data in support" & Hypothesis_supported == 0) 
+      (synth_col == "Lethal program in support" & Hypothesis_supported == 0) 
   )
 ]
 
@@ -624,56 +781,32 @@ r_rattus_DIISE_bird_overlap<- r_rattus_DIISE_bird_overlap[,.(
 #This df includes data of the review, rodent eradication programs and birds distribution
 r_rattus_DIISE_bird_overlap[, Rodent_attributed_final := "Rattus rattus"]
 
+table(r_rattus_DIISE_bird_overlap$seasonal) #88 rows with seasonal code 4. Exclude them
+r_rattus_DIISE_bird_overlap <- r_rattus_DIISE_bird_overlap[seasonal != 4, ]
+
+#How many species overlapped before filtering?
+x4 <-unique(r_rattus_DIISE_bird_overlap$scientificName) #84 species out of 281 species
+
+#Filter out from the overlap the resident range of those species that are fully migrant since the overlap is potentially a false positive
+r_rattus_DIISE_bird_overlap <- r_rattus_DIISE_bird_overlap[`Migratory status` != "Full migrant" | !seasonal %in% c(1,3,4,5), ]
+unique(r_rattus_DIISE_bird_overlap$scientificName) #Instead of 84 species, 60 truly overlapped
+ex_r_rattus <- setdiff(x4, unique(r_rattus_DIISE_bird_overlap$scientificName)) 
+ex_r_rattus
+# "Ardenna creatopus"          "Ardeola idae"               "Bulweria fallax"            "Calonectris leucomelas"    
+# "Chlidonias albostriatus"    "Diomedea dabbenena"         "Hydrobates matsudairae"     "Larus heermanni"           
+# "Nesofregetta fuliginosa"    "Pachyptila macgillivrayi"   "Phoebetria fusca"           "Procellaria aequinoctialis"
+# "Procellaria parkinsoni"     "Procellaria westlandica"    "Pseudobulweria rostrata"    "Pterodroma baraui"         
+# "Pterodroma cahow"           "Pterodroma externa"         "Pterodroma hasitata"        "Pterodroma sandwichensis"  
+# "Puffinus newelli"           "Puffinus opisthomelas"      "Sterna striata"             "Thalasseus elegans"   
+
 #How many bird species distribution overlap with the black rat eradications?
-unique(r_rattus_DIISE_bird_overlap$scientificName) #84 out of 283 species!
+length(unique(r_rattus_DIISE_bird_overlap$scientificName)) #60 out of 283 species!
 
 #How many islands?
-unique(r_rattus_DIISE_bird_overlap$Island.Name) #381 islands!
+length(unique(r_rattus_DIISE_bird_overlap$Island.Name)) #157 islands! (instead of 381)
 
 #How many eradications?
-unique(r_rattus_DIISE_bird_overlap$Eradication.ID) #454 eradications!
-
-#Now check if there are fully migrant species with island distribution
-# r_rattus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ] #Pachyptila macgillivrayi 
-# 
-# #Filter out from the overlap the resident range of those species that are fullly migrant since the overlap is potentially a false positive
-# x4 <- r_rattus_DIISE_bird_overlap[`Migratory status` != "Full migrant" | seasonal != 1, ]
-# #x <- rbind(x, m_musculus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ])
-# unique(x4$scientificName) #Instead of 84 species, 69 truly overlapped
-# ex_r_rattus <- setdiff(unique(r_rattus_DIISE_bird_overlap$scientificName), unique(x4$scientificName)) #Excluded spp: "Hydrobates leucorhous"   "Pterodroma arminjoniana" "Pterodroma externa"
-# 
-# excluded <- c(ex_m_musculus, ex_r_exulans, ex_r_norvegicus, ex_r_rattus)
-# excluded <- unique(excluded)
-# excluded
-# 
-# x[scientificName %in% excluded, scientificName]
-# x2[scientificName %in% excluded, scientificName]
-# x3[scientificName %in% excluded, scientificName]
-# x4[scientificName %in% excluded, scientificName]
-# 
-# not_truly_excluded <- c("Diomedea dabbenena", "Phoebetria fusca", "Phoebetria fusca",
-#                         "Nesofregetta fuliginosa",
-#                         "Hydrobates leucorhous",
-#                         "Puffinus mauretanicus")
-# 
-# really_excluded <- setdiff(excluded, not_truly_excluded)
-# 
-# #Load the maps of these species to confirm the range -> CONFIRMED!! THIS SPP HAVE THE LARGE RANGE AS SEASONAL = 1. 
-# excluded_species_query <- paste0("SELECT * FROM all_species WHERE sci_name IN ('", 
-#                                    paste(really_excluded, collapse = "','"), "')")
-# 
-# bird_distribution_excluded <- st_read(
-#   "~/Sixth mass extinction/Luna_project/Databases/BirdLifemaps/BOTW_2024_2.gpkg",
-#   query = threatened_species_query)
-# 
-# ggplot() +
-#   geom_sf(data = world_sf, fill = "gray90", color = "black", size = 0.1) +
-#   geom_sf(data = bird_distribution_excluded[bird_distribution_excluded$sci_name == "Pseudobulweria macgillivrayi", ], #m_musculus_DIISE_bird_overlap_sf[m_musculus_DIISE_bird_overlap_sf$sci_name == "Diomedea dabbenena", ]
-#           aes(color = factor(seasonal))) +
-#   scale_color_brewer(palette = "Set1")
-# 
-# library(mapview)
-# mapview(bird_distribution_excluded[bird_distribution_excluded$sci_name == "Pseudobulweria macgillivrayi", zcol= "seasonal"])
+length(unique(r_rattus_DIISE_bird_overlap$Eradication.ID)) #188 eradications! (instead of 454)
 
 #To make the maps, plot the eradications with the best possible evidence
 summary_DIISE_bird_r_rattus <- r_rattus_DIISE_bird_overlap[, .(
@@ -704,6 +837,41 @@ r_rattus_island<- r_rattus_island[,.(
   synth_col, Rodent_attributed_final, Archipelago , Region, Country, geom
 )]
 
+######
+excluded <- c(ex_m_musculus, ex_r_exulans, ex_r_norvegicus, ex_r_rattus)
+excluded <- unique(excluded)
+excluded 
+
+unique(m_musculus_DIISE_bird_overlap[scientificName %in% excluded, scientificName])
+unique(r_exulans_DIISE_bird_overlap[scientificName %in% excluded, scientificName])
+unique(r_norvegicus_DIISE_bird_overlap[scientificName %in% excluded, scientificName])
+unique(r_rattus_DIISE_bird_overlap[scientificName %in% excluded, scientificName])
+
+not_truly_excluded <- c("Diomedea dabbenena", "Phoebetria fusca", "Procellaria cinerea",
+                        "Eudyptes pachyrhynchus", "Nesofregetta fuliginosa",
+                        "Hydrobates leucorhous",
+                        "Ardenna carneipes", "Puffinus mauretanicus")
+
+really_excluded <- setdiff(excluded, not_truly_excluded) 
+really_excluded #when accounting for migratory species that have huge ranges, 24 species are not part of the overlap anymore. This reduced false positive results.
+
+#Load the maps of these species to confirm the range -> CONFIRMED!! THIS SPP HAVE THE LARGE RANGE AS SEASONAL = 1.
+# excluded_species_query <- paste0("SELECT * FROM all_species WHERE sci_name IN ('",
+#                                  paste(really_excluded, collapse = "','"), "')")
+# 
+# bird_distribution_excluded <- st_read(
+#   "~/Sixth mass extinction/Luna_project/Databases/BirdLifemaps/BOTW_2024_2.gpkg",
+#   query = excluded_species_query)
+# 
+# ggplot() +
+#   geom_sf(data = world_sf, fill = "gray90", color = "black", size = 0.1) +
+#   geom_sf(data = bird_distribution_excluded[bird_distribution_excluded$sci_name == "Procellaria aequinoctialis", ], 
+#           aes(color = factor(seasonal))) +
+#   scale_color_brewer(palette = "Set1")
+# 
+# library(mapview)
+# mapview(bird_distribution_excluded[bird_distribution_excluded$sci_name == "Diomedea dabbenena", zcol= "seasonal"])
+
 # 5. Summary  --------------------------------------------------
 # -- For overall DIISE eradications --
 length(unique(data_DIISE$`Eradication ID`)) #1104 eradications
@@ -718,6 +886,14 @@ sum_DIISE <- data_DIISE[, .(
 
 sum_DIISE #'*There have been 1104 rodent eradication on 794 islands, of which 58.4% were successful.*
 
+# -- Best evidence per island for all rodents --
+all_eradications <- rbindlist(list(
+  m_musculus_island,
+  r_exulans_island,
+  r_norvegicus_island,
+  r_rattus_island
+), use.names = TRUE, fill = TRUE)
+
 # -- Overlapped points of rodent eradication and threatened bird ranges --
 Rodents_overlap_data<- rbindlist(list(
   r_rattus_DIISE_bird_overlap,
@@ -729,12 +905,11 @@ Rodents_overlap_data<- rbindlist(list(
 Rodents_overlap_data$synth_col <- factor(Rodents_overlap_data$synth_col, 
                                          levels = rev(levels(Rodents_overlap_data$synth_col)))
 
-## Sys review -----------
-#'[For the systematic review we need the evidence plot and summaries
-unique(Rodents_overlap_data$scientificName) #111 species
-unique(Rodents_overlap_data$Island.Name) #719 islands
-length(unique(Rodents_overlap_data$Eradication.ID)) #948 eradications 
-#'*Rodent eradication programs were conducted within the range of 111 attributed bird species*
+## All species -----------
+length(unique(Rodents_overlap_data$scientificName)) #87 instead of 111 species
+length(unique(Rodents_overlap_data$Island.Name)) #353 instead of 719 islands
+length(unique(Rodents_overlap_data$Eradication.ID)) #480 instead of 948 eradications 
+#'*A total of 480 rodent eradication programs were conducted within the range of 87 attributed bird species*
 
 #Count and proportion of each evidence type overall
 sum_overlap <- unique(Rodents_overlap_data[, .(Eradication.ID, `Status (Eradication)`, Rodent_attributed_final, synth_col)])
@@ -749,13 +924,12 @@ sum_overlap <- sum_overlap[, .(
 
 sum_overlap 
 #'*Of these birds - on whose behalf eradications were conducted - we found:*
-#'*no studies connecting them to rodents for 20.04%;* 
-#'*only studies not in support for 11.92%;* 
-#'*only evidence that predation occurs for 10.13%;* 
-#'*lethal program with data in support for 0.42%;* 
-#'*at least one population study in support, but without data, for 39.45%;* 
-#'*at least one population study in support with data for 12.13%;* 
-#'*and at least one population study with data and qualities for 5.91%.*
+#'*no studies connecting them to rodents for 39.38%;* 
+#'*only studies not in support for 14.58%;* 
+#'*only evidence that predation occurs for 5.42%;* 
+#'*at least one population study in support, but without data, for 21.67%;* 
+#'*at least one population study in support with data for 11.25%;* 
+#'*and at least one population study with data and qualities for 7.71%.*
 setnames(sum_overlap, "synth_col", "Evidence")
 setorder(sum_overlap, -Evidence)
 sum_overlap
@@ -774,11 +948,11 @@ setnames(sum_rodent, "Rodent_attributed_final", "Rodent attributed")
 setorder(sum_rodent, -Evidence)
 sum_rodent
 
-sum(sum_rodent$N) #correct! 948 eradications
-sum(sum_rodent[Evidence == "All studies are not in support", N]) #Should be 113
-sum(sum_rodent[Evidence == "Population study without data in support", N]) #Should be 374
+sum(sum_rodent$N) #correct! 480 eradications
+sum(sum_rodent[Evidence == "All studies are not in support", N]) #Should be 70
+sum(sum_rodent[Evidence == "Population study without data in support", N]) #Should be 104
 
-## Sys review by eradication status ----------- 
+## All species by eradication status ----------- 
 #Count and proportion of each evidence type overall
 sum_overlap_erad_status <- unique(Rodents_overlap_data[, .(Eradication.ID, `Status (Eradication)`, Rodent_attributed_final, synth_col)])
 sum_overlap_erad_status <- sum_overlap_erad_status[order(Eradication.ID, as.integer(synth_col))]
@@ -794,8 +968,8 @@ setnames(sum_overlap_erad_status, "synth_col", "Evidence")
 setorder(sum_overlap_erad_status, -`Status (Eradication)`, -Evidence)
 sum_overlap_erad_status
 
-sum(sum_overlap_erad_status[Evidence == "All studies are not in support", N]) #Should be 113
-sum(sum_overlap_erad_status[Evidence == "Population study without data in support", N]) #Should be 374
+sum(sum_overlap_erad_status[Evidence == "All studies are not in support", N]) #okay
+sum(sum_overlap_erad_status[Evidence == "Population study without data in support", N]) #okay
 
 #Count and proportion of each eradication type
 sum_rodent_erad_status <- unique(Rodents_overlap_data[, .(Eradication.ID, `Status (Eradication)`, Rodent_attributed_final, synth_col)])
@@ -812,8 +986,8 @@ setorder(sum_rodent_erad_status, -`Status (Eradication)`, -Evidence)
 
 sum(sum_rodent_erad_status[`Rodent attributed` == "Rattus exulans", Proportion]) #Should be 100%
 sum(sum_rodent_erad_status$N) #Perfect!
-sum(sum_rodent_erad_status[Evidence == "All studies are not in support", N]) #Should be 113
-sum(sum_rodent_erad_status[Evidence == "Population study without data in support", N]) #Should be 374
+sum(sum_rodent_erad_status[Evidence == "All studies are not in support", N]) #okay
+sum(sum_rodent_erad_status[Evidence == "Population study without data in support", N]) #okay
 
 # ggplot(Rodents_overlap_data,
 #        aes(reorder(`Status (Eradication)`, `Status (Eradication)`, function(x) -length(x)),
@@ -851,12 +1025,12 @@ ggplot(sum_rodent_erad_status,
   ylab("Number of eradications")+
   xlab("")+
   theme_lundy+
-  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90))
+  theme(legend.position = "bottom", axis.text.x = element_text(angle = 90, vjust = 0))
 
-ggsave("figures/evidence_by_status.pdf", plot = last_plot(), device = cairo_pdf, 
+ggsave("figures/eradication_programs/evidence_by_status.pdf", plot = last_plot(), device = cairo_pdf, 
        width = 11.46, height = 8.30)
 
-## Sys review for extant species only -----------
+## All extant species -----------
 #(excluding extinct species)
 table(Rodents_overlap_data$redlistCategory) #281 rows of extinct species
 
@@ -872,18 +1046,19 @@ sum_overlap_extant <- sum_overlap_extant[, .(.N), by = synth_col][
 setnames(sum_overlap_extant, "synth_col", "Evidence")
 setorder(sum_overlap_extant, -Evidence)
 
-#'*When extinct species are excluded the total number of eradications is not reduced,*
-#'*meaning that the points where ex species overlapped,*
-#'*also overlapped with extant species*
+#'*When extinct species are excluded the total number of eradications is reduced,*
+#'*meaning that some of the points where ex species overlapped,*
+#'*did not overlap with extant species*
 sum_overlap_extant 
-sum(sum_overlap$N) #correct! 948 eradications
-sum(sum_overlap_extant[Evidence == "All studies are not in support", N]) #Changed to 99
-sum(sum_overlap_extant[Evidence == "Population study without data in support", N]) #Changed to 372
+sum(sum_overlap_extant$N) #454 eradications
+sum(sum_overlap_extant[Evidence == "All studies are not in support", N]) #Changed to 55
+sum(sum_overlap_extant[Evidence == "Population study without data in support", N]) #Changed to 99
 
-#Confirm that no eradication is lost entirely
+#Some eradications are completely lost when excluding extinct species
 erad_ids_full <- unique(Rodents_overlap_data$Eradication.ID)
 erad_ids_extant <- unique(Rodents_overlap_data[redlistCategory != "Extinct", Eradication.ID])
-setdiff(erad_ids_full, erad_ids_extant)  #should be 0
+setdiff(erad_ids_full, erad_ids_extant)  
+length(setdiff(erad_ids_full, erad_ids_extant)) #26
 
 #Count and proportion of each evidence type per rodent species
 sum_rodent_extant <- Rodents_overlap_data[redlistCategory != "Extinct", ]
@@ -901,10 +1076,10 @@ setorder(sum_rodent_extant, -Evidence)
 sum_rodent_extant
 
 sum(sum_rodent_extant$N) #The total is the same
-sum(sum_rodent_extant[Evidence == "All studies are not in support", N]) #Changed to 99
-sum(sum_rodent_extant[Evidence == "Population study without data in support", N]) #Changed to 372
+sum(sum_rodent_extant[Evidence == "All studies are not in support", N]) #Changed to 55
+sum(sum_rodent_extant[Evidence == "Population study without data in support", N]) #Changed to 99
 
-## Sys review for extant multi-island endemics and regional species -----------
+## All extant multi-island endemics and regional species -----------
 #(excluding extinct and single island endemics)
 table(Rodents_overlap_data$single_island_endemic) #64 rows
 table(Rodents_overlap_data$redlistCategory) #281 rows
@@ -925,19 +1100,20 @@ setnames(sum_overlap_extant_no_sing_end, "synth_col", "Evidence")
 setorder(sum_overlap_extant_no_sing_end, -Evidence)
 
 #'*When extinct species and single-endemic species are excluded*
-#'*the total number of eradications is not reduced, same as before*
-#'*the points where ex species and single-endemic species overlapped,*
-#'*also overlapped with extant species*
+#'*the total number of eradications is reduced, same as before*
+#'*some of the points where ex species and single-endemic species overlapped,*
+#'*did not overlap with extant species*
 sum_overlap_extant_no_sing_end
-sum(sum_overlap_extant_no_sing_end$N) #correct! 948 eradications
-sum(sum_overlap_extant_no_sing_end[Evidence == "All studies are not in support", N]) #Changed to 99
-sum(sum_overlap_extant_no_sing_end[Evidence == "Population study without data in support", N]) #Changed to 372
+sum(sum_overlap_extant_no_sing_end$N) #451 eradications
+sum(sum_overlap_extant_no_sing_end[Evidence == "All studies are not in support", N]) #Changed to 55
+sum(sum_overlap_extant_no_sing_end[Evidence == "Population study without data in support", N]) #Changed to 99
 
-#Confirm that no eradication is lost entirely
+#How many eradications were lost?
 erad_ids_full <- unique(Rodents_overlap_data$Eradication.ID)
 erad_ids_extant <- unique(Rodents_overlap_data[redlistCategory != "Extinct" &
                                                  single_island_endemic != "yes", Eradication.ID])
-setdiff(erad_ids_full, erad_ids_extant)  #should be 0
+setdiff(erad_ids_full, erad_ids_extant)  
+length(setdiff(erad_ids_full, erad_ids_extant)) #29
 
 table(Rodents_overlap_data[redlistCategory != "Extinct", single_island_endemic]) #yes:9
 table(Rodents_overlap_data[single_island_endemic == "yes", redlistCategory]) #CR: 7 EN:2
@@ -968,11 +1144,10 @@ setorder(sum_rodent_extant_no_sing_end, -Evidence)
 sum_rodent_extant_no_sing_end
 
 sum(sum_rodent_extant_no_sing_end$N) #The total is the same
-sum(sum_rodent_extant_no_sing_end[Evidence == "All studies are not in support", N]) #Changed to 99
-sum(sum_rodent_extant_no_sing_end[Evidence == "Population study without data in support", N]) #Changed to 372
+sum(sum_rodent_extant_no_sing_end[Evidence == "All studies are not in support", N]) #Changed to 55
+sum(sum_rodent_extant_no_sing_end[Evidence == "Population study without data in support", N]) #Changed to 99
 
-
-sum_review_tables <- list(
+sum_erad_tables <- list(
   "summary" = sum_overlap,
   "sum_per_rodent" = sum_rodent,
   "sum_erad_status" = sum_overlap_erad_status,
@@ -983,82 +1158,23 @@ sum_review_tables <- list(
   "sum_per_rodent_extant_no_sing_end" = sum_rodent_extant_no_sing_end
   )
 
-writexl::write_xlsx(sum_review_tables, "builds/eradication_programs/sum_review_tables.xlsx")
----------------------------------------
-  
-#Per unique bird species and evidence
+writexl::write_xlsx(sum_erad_tables, "builds/eradication_programs/sum_erad_tables.xlsx")
+
+
+#How many bird species (that overlap with eradications) have ‘population studies with data in support’ and ‘population studies with qualities in support’?
 pop_data_sup<-Rodents_overlap_data[synth_col=="Population study with data in support"]
 unique(pop_data_sup$scientificName)
 
 pop_data_sup_all<-Rodents_overlap_data[synth_col=="Population study with all qualities in support"]
 unique(pop_data_sup_all$scientificName)
 
-
-sum_era <- unique(Rodents_overlap_data[, .(Eradication.ID, `Status (Eradication)`)])
-table(sum_era$`Status (Eradication)`)
-
-#Count and proportion of each eradication type
-sum_era <- sum_era[, .(
-  count = .N
-), by = `Status (Eradication)`][
-  , proportion := (count / sum(count))*100
-] #60% of the eradications were successful
-
-#BUT CHECK THIS % ALSO INCLUDING THE EVIDENCE TYPE!!!!!
-sum_era_evi <- Rodents_overlap_data[, .N,
-                                    by = .(Rodent_attributed_final, synth_col, `Status (Eradication)`)][
-                                      , proportion := (N / sum(N)) * 100, by = .(Rodent_attributed_final, `Status (Eradication)`)]
-
-# -- Best evidence per island for all rodents --
-all_eradications <- rbindlist(list(
-  m_musculus_island,
-  r_exulans_island,
-  r_norvegicus_island,
-  r_rattus_island
-), use.names = TRUE, fill = TRUE)
-
-setDT(all_eradications) #converts back to data.table for summary stats only
-
-
-
-
-#Now check if there are fully migrant species with island distribution
-m_musculus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ] #Pachyptila macgillivrayi 
-
-#Filter out from the overlap the resident range of those species that are fullly migrant since the overlap is potentially a false positive
-x <- m_musculus_DIISE_bird_overlap[`Migratory status` != "Full migrant" | seasonal != 1, ]
-x <- rbind(x, m_musculus_DIISE_bird_overlap[`Migratory status` == "Full migrant" & distribution == "island", ])
-unique(x$scientificName) #Instead of 20 species, 17 truly overlapped
-ex_m_musculus <- setdiff(unique(m_musculus_DIISE_bird_overlap$scientificName), unique(x$scientificName)) #Excluded spp: "Hydrobates leucorhous"   "Pterodroma arminjoniana" "Pterodroma externa"
-
-
-
-
-ggplot(Rodents_overlap_data,
-       aes(reorder(Rodent_attributed_final, Rodent_attributed_final, function(x) -length(x)),
-           fill=synth_col, color=synth_col)) +
-  geom_bar(stat = "count", linewidth=.75) +
-  scale_fill_manual(values = plot_col)+
-  scale_color_manual(values = col_pal) +
-  ylab("Number of eradications")+
-  xlab("")+
-  scale_x_discrete(labels = c(c("Rattus rattus" = "Black rats", 
-                                "Rattus norvegicus" = "Brown rats",
-                                "Rattus exulans" = "Pacific rats",
-                                "Mus musculus" = "House mouse")))+
-  
-  theme_lundy+
-  theme(legend.position = "none")
-
-
-
-#Frequency of support
+## Frequency of support -----------
 #number of studies in each evidence category and in support and not in support of the hypothesis (for those bird species that overlap with an eradication)
 data_review[, value := ifelse(Hypothesis_supported == 0, -1, 1)]
 data_review 
 
 #Filter rodent sp different to the ones in our study
-data_review  <- data_review [Rodent_attributed_final %in% rodent_sp]
+data_review  <- data_review[Rodent_attributed_final %in% rodent_sp]
 unique(data_review [, .(Evidence_category, Evidence_effect, Evidence_method)])
 
 #Create a continuous quality column
@@ -1105,7 +1221,7 @@ data_review [, synth_evidence := ifelse(Evidence_category == "Population",
                                         Evidence_category)]
 
 #Filter this by the bird species with eradications
-bird_sp_rodent_overlap<-unique(Rodents_overlap_data$scientificName) #114 bird species
+bird_sp_rodent_overlap <- unique(Rodents_overlap_data$scientificName) #87 bird species
 
 data_review <-data_review [scientificName %in% bird_sp_rodent_overlap]
 
@@ -1151,6 +1267,7 @@ study_freq$proportion<-round(study_freq$proportion, digits = 2)
 
 # 6. Save builds  --------------------------------------------------
 #Full dataset including data of the review, eradication programs and threatened birds distribution
+Rodents_overlap_data[, distribution := NULL]
 fwrite(Rodents_overlap_data, "builds/eradication_programs/Rodents_overlap_data.csv")
 
 #Data for each rodent species map
