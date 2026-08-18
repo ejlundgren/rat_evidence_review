@@ -1,14 +1,14 @@
 Evidence_category_effect,Evidence_category_effect_data,Hypothesis_supported,Quality_Study_Highlight,number_studies,n_abs,proportion
-Population Abundance,Population Abundance 0,0,No,-16,16,13.33
-Predation,Predation,1,No,44,44,36.67
-Population Reproductive success,Population Reproductive success 1,0,No,-4,4,3.33
-Population Abundance,Population Abundance 0,1,No,10,10,8.33
-Population Abundance,Population Abundance 1,1,Highlight,2,2,1.67
-Population Abundance,Population Abundance 1,1,No,7,7,5.83
-Population Abundance,Population Abundance 1,0,No,-4,4,3.33
-Population Reproductive success,Population Reproductive success 0,0,No,-3,3,2.5
-Predation,Predation,0,No,-16,16,13.33
-Population Reproductive success,Population Reproductive success 0,1,No,2,2,1.67
-Population Abundance,Population Abundance 1,0,Highlight,-6,6,5
-Population Reproductive success,Population Reproductive success 1,1,No,4,4,3.33
-Population Reproductive success,Population Reproductive success 1,1,Highlight,2,2,1.67
+Population Abundance,Population Abundance 0,0,No,-15,15,12.82
+Predation,Predation,1,No,44,44,37.61
+Population Reproductive success,Population Reproductive success 1,0,No,-4,4,3.42
+Population Abundance,Population Abundance 0,1,No,8,8,6.84
+Population Abundance,Population Abundance 1,1,Highlight,2,2,1.71
+Population Abundance,Population Abundance 1,1,No,7,7,5.98
+Population Abundance,Population Abundance 1,0,No,-4,4,3.42
+Population Reproductive success,Population Reproductive success 0,0,No,-3,3,2.56
+Predation,Predation,0,No,-16,16,13.68
+Population Reproductive success,Population Reproductive success 0,1,No,2,2,1.71
+Population Abundance,Population Abundance 1,0,Highlight,-6,6,5.13
+Population Reproductive success,Population Reproductive success 1,1,No,4,4,3.42
+Population Reproductive success,Population Reproductive success 1,1,Highlight,2,2,1.71

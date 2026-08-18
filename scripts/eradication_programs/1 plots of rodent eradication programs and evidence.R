@@ -160,10 +160,10 @@ p_study_freq <- ggplot(data = study_freq[Evidence_category_effect != "NONE"],
   geom_vline(xintercept = 0)+
   scale_color_manual(values = c("Highlight" = "gold",
                                 "No" = "transparent"))+
-  annotate(geom = "text", x = -50, y = 3.4,
+  annotate(geom = "text", x = -45, y = 3.4,
            label = "Not in support", size = 3.3, hjust = 0,
            color = "grey30")+
-  annotate(geom = "text", x = 5, y = 3.4,
+  annotate(geom = "text", x = 10, y = 3.4,
            label = "In support", size = 3.3, hjust = 0,
            color = "grey30")+
   scale_fill_manual(values = c("Predation" = "grey50",
